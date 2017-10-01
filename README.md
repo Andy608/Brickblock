@@ -1,3 +1,3 @@
 # Brickblock
 
-Brickblock is a voxel world developed in C++ using OpenGL.
+Brickblock is an experimental voxel world engine, developed in C++ using OpenGL.
