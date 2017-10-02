@@ -1,10 +1,25 @@
+#include <iostream>
 #include <string>
-#include <glad\glad.h>
 #include "Window.h"
 #include "../core/BrickblockInfo.h"
 using namespace bb;
 
-const GLFWvidmode* Window::init()
+Window *Window::window = nullptr;
+
+Window* Window::createWindow()
+{
+	if (window == nullptr)
+	{
+		window = new Window();
+		return window;
+	}
+	else
+	{
+		throw("A window is already created.");
+	}
+}
+
+const GLFWvidmode* Window::initGLFW()
 {
 	if (glfwInit())
 	{
@@ -25,7 +40,7 @@ const std::string Window::initRandomizedTitle()
 }
 
 Window::Window() :
-	mVIDEO_MODE(init()),
+	mVIDEO_MODE(initGLFW()),
 	mTITLE(initRandomizedTitle())
 {
 	initWindowHints();
@@ -51,6 +66,7 @@ Window::Window() :
 			throw(std::string("Failed to initialize GLAD."));
 		}
 
+		initWindowCallbacks();
 		glViewport(0, 0, mWidth, mHeight);
 		glfwShowWindow(mWindowHandle);
 	}
@@ -59,6 +75,24 @@ Window::Window() :
 Window::~Window()
 {
 	glfwTerminate();
+}
+
+void Window::initWindowCallbacks() const
+{
+	glfwSetCursorPosCallback(mWindowHandle, cursorPositionCallback);
+	glfwSetErrorCallback(errorCallback);
+	glfwSetFramebufferSizeCallback(mWindowHandle, framebufferSizeCallback);
+	glfwSetKeyCallback(mWindowHandle, keyCallback);
+	glfwSetMouseButtonCallback(mWindowHandle, mouseButtonCallback);
+	glfwSetScrollCallback(mWindowHandle, mouseScrollCallback);
+	glfwSetWindowFocusCallback(mWindowHandle, windowFocusCallback);
+	glfwSetWindowPosCallback(mWindowHandle, windowPositionCallback);
+	glfwSetWindowSizeCallback(mWindowHandle, windowSizeCallback);
+}
+
+GLFWwindow* Window::getWindowHandle() const
+{
+	return mWindowHandle;
 }
 
 void Window::initWindowHints() const
@@ -77,7 +111,55 @@ void Window::initWindowSize()
 	mHeight = mVIDEO_MODE->height / 2;
 }
 
-GLFWwindow* Window::getWindowHandle() const
+void Window::updateViewportSize(GLint viewportWidth, GLint viewportHeight)
 {
-	return mWindowHandle;
+	window->mWidth = viewportWidth;
+	window->mHeight = viewportHeight;
+	glViewport(0, 0, window->mWidth, window->mHeight);
+}
+
+void Window::cursorPositionCallback(GLFWwindow* windowHandle, GLdouble xPosition, GLdouble yPosition)
+{
+	//std::cout << "Cursor Position Callback" << std::endl;
+}
+
+void Window::errorCallback(GLint error, const GLchar *description)
+{
+	std::cout << "GLFW Window Error #" + std::to_string(error) + ": " + description << std::endl;
+}
+
+void Window::framebufferSizeCallback(GLFWwindow* windowHandle, GLint windowWidth, GLint windowHeight)
+{
+	//std::cout << "Framebuffer Size Callback" << std::endl;
+	updateViewportSize(windowWidth, windowHeight);
+}
+
+void Window::keyCallback(GLFWwindow* windowHandle, GLint key, GLint scancode, GLint action, GLint mode)
+{
+	//std::cout << "Keyboard Callback" << std::endl;
+}
+
+void Window::mouseButtonCallback(GLFWwindow* windowHandle, GLint button, GLint action, GLint mode)
+{
+	//std::cout << "Mouse Button Callback" << std::endl;
+}
+
+void Window::mouseScrollCallback(GLFWwindow* windowHandle, GLdouble xOffset, GLdouble yOffset)
+{
+	//std::cout << "Mouse Scroll Callback" << std::endl;
+}
+
+void Window::windowFocusCallback(GLFWwindow* windowHandle, GLint isFocused)
+{
+	//std::cout << "Window Focus Callback" << std::endl;
+}
+
+void Window::windowPositionCallback(GLFWwindow* windowHandle, GLint xPosition, GLint yPosition)
+{
+	//std::cout << "Window Position Callback" << std::endl;
+}
+
+void Window::windowSizeCallback(GLFWwindow* windowHandle, GLint windowWidth, GLint windowHeight)
+{
+	//std::cout << "Window Size Callback" << std::endl;
 }

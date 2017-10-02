@@ -3,7 +3,7 @@
 #include "../window/Window.h"
 using namespace bb;
 
-Brickblock::Brickblock(Window* gameWindow) :
+Brickblock::Brickblock(Window *gameWindow) :
 	mGameWindow(gameWindow)
 {
 

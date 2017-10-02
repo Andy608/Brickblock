@@ -8,13 +8,13 @@ namespace bb
 	class Brickblock
 	{
 	public:
-		Brickblock(Window* gameWindow);
+		Brickblock(Window *gameWindow);
 		~Brickblock();
 
 		void start();
 
 	private:
-		Window* mGameWindow;
+		Window *mGameWindow;
 	};
 }
 
