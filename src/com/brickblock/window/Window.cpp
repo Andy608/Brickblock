@@ -137,6 +137,10 @@ void Window::framebufferSizeCallback(GLFWwindow* windowHandle, GLint windowWidth
 void Window::keyCallback(GLFWwindow* windowHandle, GLint key, GLint scancode, GLint action, GLint mode)
 {
 	//std::cout << "Keyboard Callback" << std::endl;
+	if (key == GLFW_KEY_ESCAPE && action == GLFW_RELEASE)
+	{
+		glfwSetWindowShouldClose(windowHandle, GL_TRUE);
+	}
 }
 
 void Window::mouseButtonCallback(GLFWwindow* windowHandle, GLint button, GLint action, GLint mode)

@@ -37,8 +37,8 @@ namespace bb
 		static void windowPositionCallback(GLFWwindow* windowHandle, GLint xPosition, GLint yPosition);
 		static void windowSizeCallback(GLFWwindow* windowHandle, GLint windowWidth, GLint windowHeight);
 
-		int mWidth;
-		int mHeight;
+		GLint mWidth;
+		GLint mHeight;
 
 		GLFWwindow *mWindowHandle;
 
