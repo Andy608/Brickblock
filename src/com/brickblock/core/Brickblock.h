@@ -1,6 +1,8 @@
 #ifndef BB_BRICKBLOCK_H_
 #define BB_BRICKBLOCK_H_
 
+#include "../util/logger/Logger.h"
+
 namespace bb
 {
 	class Window;
@@ -14,6 +16,7 @@ namespace bb
 		void start();
 
 	private:
+		Logger mBrickblockLogger;
 		Window *mGameWindow;
 	};
 }
