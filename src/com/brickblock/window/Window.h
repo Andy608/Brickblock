@@ -4,6 +4,7 @@
 #include <string>
 #include <glad\glad.h>
 #include <GLFW\glfw3.h>
+#include "../util/logger/Logger.h"
 
 namespace bb
 {
@@ -21,6 +22,7 @@ namespace bb
 
 	private:
 		static Window *window;
+		static Logger logger;
 
 		static const GLFWvidmode* initGLFW();
 		static const std::string initRandomizedTitle();

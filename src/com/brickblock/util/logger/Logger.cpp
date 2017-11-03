@@ -3,22 +3,42 @@
 
 using namespace bb;
 
-const std::wstring Logger::CONSOLE_HEADER = L"[%5p] (%c.cpp:%L) T%r - %m%n";
-
-Logger::Logger(std::string loggerName) : mLOGGER_NAME(loggerName)
+Logger::Logger(std::string loggerName) : 
+	mLOGGER_NAME(loggerName),
+	mLogger(log4cxx::LoggerPtr(log4cxx::Logger::getLogger(mLOGGER_NAME)))
 {
-	mConsoleLayout = new log4cxx::PatternLayout(CONSOLE_HEADER);
-	mConsoleAppender = new log4cxx::ConsoleAppender(mConsoleLayout);
-	log4cxx::BasicConfigurator::configure(log4cxx::AppenderPtr(mConsoleAppender));
-	log4cxx::Logger::getRootLogger()->addAppender(mConsoleAppender);
-	mLogger = log4cxx::LoggerPtr(log4cxx::Logger::getLogger(mLOGGER_NAME));
 
-	log(LEVEL_DEBUG, "Sup!");
 }
 
 Logger::~Logger()
 {
-	log(LEVEL_DEBUG, "Bye bitch!");
+
+}
+
+void Logger::setMinimumLevel(const Level& minimumLogLevel)
+{
+	mMinimumLoggerLevel = minimumLogLevel;
+	switch (mMinimumLoggerLevel)
+	{
+	case Level::LEVEL_TRACE:
+		mLogger->setLevel(log4cxx::Level::getTrace());
+		break;
+	case Level::LEVEL_DEBUG:
+		mLogger->setLevel(log4cxx::Level::getDebug());
+		break;
+	case Level::LEVEL_WARN:
+		mLogger->setLevel(log4cxx::Level::getWarn());
+		break;
+	case Level::LEVEL_ERROR:
+		mLogger->setLevel(log4cxx::Level::getError());
+		break;
+	case Level::LEVEL_FATAL:
+		mLogger->setLevel(log4cxx::Level::getFatal());
+		break;
+	default:
+		mLogger->setLevel(log4cxx::Level::getInfo());
+		break;
+	}
 }
 
 void Logger::log(const Level &level, std::string message)
@@ -49,4 +69,9 @@ void Logger::log(const Level &level, std::string message)
 void Logger::log(std::string message)
 {
 	log(Level::LEVEL_INFO, message);
+}
+
+const std::string& Logger::getName() const
+{
+	return mLOGGER_NAME;
 }

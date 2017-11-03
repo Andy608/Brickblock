@@ -10,14 +10,17 @@ namespace bb
 	class Brickblock
 	{
 	public:
-		Brickblock(Window *gameWindow);
+		static Brickblock *brickblock;
+		static Brickblock* init(GLint argc, GLint **argv);
 		~Brickblock();
 
 		void start();
 
 	private:
-		Logger mBrickblockLogger;
+		static Logger logger;
 		Window *mGameWindow;
+
+		Brickblock();
 	};
 }
 

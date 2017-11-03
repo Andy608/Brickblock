@@ -4,15 +4,34 @@
 #include "../window/Window.h"
 using namespace bb;
 
-Brickblock::Brickblock(Window *gameWindow) :
-	mBrickblockLogger(BrickblockInfo::TITLE),
-	mGameWindow(gameWindow)
-{
+Brickblock* Brickblock::brickblock = nullptr;
+Logger Brickblock::logger = Logger("Brickblock");
 
+Brickblock* Brickblock::init(GLint argc, GLint **argv)
+{
+	logger.setMinimumLevel(Logger::LEVEL_TRACE);
+
+	if (brickblock == nullptr)
+	{
+		brickblock = new Brickblock();
+		brickblock->mGameWindow = Window::createWindow();
+	}
+	else
+	{
+		logger.log(Logger::LEVEL_WARN, "Brickblock is already initialized.");
+	}
+
+	return brickblock;
+}
+
+Brickblock::Brickblock()
+{
+	logger.log(Logger::LEVEL_TRACE, "Creating Brickblock...");
 }
 
 Brickblock::~Brickblock()
 {
+	logger.log(Logger::LEVEL_TRACE, "Deleting Brickblock...");
 	delete mGameWindow;
 }
 
