@@ -32,11 +32,11 @@ int main(int argc, int **argv)
 	DirectoryLocation *directoryTest = nullptr;
 	FileLocation *fileLocation = nullptr;
 
-	Brickblock::bbLogger.logInfo("Main.cpp", "TESTING");
+	//Brickblock::bbLogger.logInfo("Main.cpp", "TESTING");
 
 	try
 	{
-		directoryTest = new DirectoryLocation("C:/Users/Andre/Desktop/Files/C++ Development", "BITCH", false);
+		directoryTest = new DirectoryLocation("", "BITCH", true);
 		directoryTest->createDirectory();
 
 		fileLocation = new FileLocation(*directoryTest, "hello", FileLocation::TXT_EXT);

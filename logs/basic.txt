@@ -3,3 +3,7 @@
 [11/10/17 10:13:49 PM] [INFO] (Logger:basic_logger) - Some log message
 [11/10/17 10:15:07 PM] [INFO] (Logger:basic_logger) - Some log message
 [11/10/17 11:16:54 PM] [INFO] (Logger:basic_logger) - Some log message
+[11/11/17 00:11:14 AM] [INFO] (Logger:basic_logger) - Some log message
+[11/11/17 00:16:43 AM] [INFO] (Logger:basic_logger) - Some log message
+[11/11/17 00:20:32 AM] [INFO] (Logger:basic_logger) - Some log message
+[11/11/17 00:22:13 AM] [INFO] (Logger:basic_logger) - Some log message
