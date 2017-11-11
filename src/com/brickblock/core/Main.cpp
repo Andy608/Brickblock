@@ -32,7 +32,7 @@ int main(int argc, int **argv)
 	DirectoryLocation *directoryTest = nullptr;
 	FileLocation *fileLocation = nullptr;
 
-	Brickblock::bbLogger.logInfo("Main.cpp", "TESTING");
+	//Brickblock::bbLogger.logInfo("Main.cpp", "TESTING");
 
 	try
 	{
