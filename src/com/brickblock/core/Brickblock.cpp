@@ -5,7 +5,7 @@
 using namespace bb;
 
 Brickblock* Brickblock::brickblock = nullptr;
-Logger Brickblock::bbLogger = Logger("[%x %r] % l(Logger:%n) %v");
+Logger Brickblock::bbLogger = Logger("[%x %r] %l (Logger:%n) %v");
 
 Brickblock* Brickblock::init(GLint argc, GLint **argv)
 {

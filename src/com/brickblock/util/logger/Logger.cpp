@@ -49,7 +49,7 @@ void Logger::logCritical(const std::string& className, std::string message, GLbo
 
 }
 
-std::string getFormattedMessage(const std::string& className, std::string message)
+std::string Logger::getFormattedMessage(const std::string& className, std::string message)
 {
 	return "[" + className + "] - " + message;
 }
