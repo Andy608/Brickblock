@@ -5,19 +5,16 @@
 using namespace bb;
 
 Window* Window::window = nullptr;
-Logger Window::logger = Logger("Window");
 
 Window* Window::createWindow()
 {
-	logger.setMinimumLevel(Logger::LEVEL_TRACE);
-
 	if (window == nullptr)
 	{
 		window = new Window();
 	}
 	else
 	{
-		logger.log(Logger::LEVEL_WARN, "A window is already created.");
+		//Logger warn
 	}
 
 	return window;
@@ -32,7 +29,7 @@ const GLFWvidmode* Window::initGLFW()
 	else
 	{
 		std::string error = "Error initializing GLFW.";
-		logger.log(Logger::LEVEL_ERROR, error);
+		//logger->log(Logger::LEVEL_ERROR, error);
 		throw(error);
 	}
 }
@@ -57,7 +54,7 @@ Window::Window() :
 	if (mWindowHandle == nullptr)
 	{
 		glfwTerminate();
-		logger.log(Logger::LEVEL_ERROR, "Window could not be created.");
+		//logger->log(Logger::LEVEL_ERROR, "Window could not be created.");
 	}
 	else
 	{
@@ -66,7 +63,7 @@ Window::Window() :
 		if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
 		{
 			glfwTerminate();
-			logger.log(Logger::LEVEL_ERROR, "Failed to initialize GLAD.");
+			//logger->log(Logger::LEVEL_ERROR, "Failed to initialize GLAD.");
 		}
 
 		initWindowCallbacks();
@@ -74,12 +71,12 @@ Window::Window() :
 		glfwShowWindow(mWindowHandle);
 	}
 
-	logger.log(Logger::LEVEL_TRACE, "Creating Window...");
+	//logger->log(Logger::LEVEL_TRACE, "Creating Window...");
 }
 
 Window::~Window()
 {
-	logger.log(Logger::LEVEL_TRACE, "Deleting Window...");
+	//logger->log(Logger::LEVEL_TRACE, "Deleting Window...");
 	glfwTerminate();
 }
 

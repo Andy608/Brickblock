@@ -5,12 +5,10 @@
 using namespace bb;
 
 Brickblock* Brickblock::brickblock = nullptr;
-Logger Brickblock::logger = Logger("Brickblock");
+Logger Brickblock::bbLogger = Logger("[%x %r] % l(Logger:%n) %v");
 
 Brickblock* Brickblock::init(GLint argc, GLint **argv)
 {
-	logger.setMinimumLevel(Logger::LEVEL_TRACE);
-
 	if (brickblock == nullptr)
 	{
 		brickblock = new Brickblock();
@@ -18,7 +16,7 @@ Brickblock* Brickblock::init(GLint argc, GLint **argv)
 	}
 	else
 	{
-		logger.log(Logger::LEVEL_WARN, "Brickblock is already initialized.");
+		//logger.log(Logger::LEVEL_WARN, "Brickblock is already initialized.");
 	}
 
 	return brickblock;
@@ -26,12 +24,12 @@ Brickblock* Brickblock::init(GLint argc, GLint **argv)
 
 Brickblock::Brickblock()
 {
-	logger.log(Logger::LEVEL_TRACE, "Creating Brickblock...");
+	//logger.log(Logger::LEVEL_TRACE, "Creating Brickblock...");
 }
 
 Brickblock::~Brickblock()
 {
-	logger.log(Logger::LEVEL_TRACE, "Deleting Brickblock...");
+	//logger.log(Logger::LEVEL_TRACE, "Deleting Brickblock...");
 	delete mGameWindow;
 }
 

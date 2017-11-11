@@ -1,6 +1,7 @@
 #ifndef BB_BRICKBLOCK_H_
 #define BB_BRICKBLOCK_H_
 
+#include <glad\glad.h>
 #include "../util/logger/Logger.h"
 
 namespace bb
@@ -10,6 +11,7 @@ namespace bb
 	class Brickblock
 	{
 	public:
+		static Logger bbLogger;
 		static Brickblock *brickblock;
 		static Brickblock* init(GLint argc, GLint **argv);
 		~Brickblock();
@@ -17,7 +19,6 @@ namespace bb
 		void start();
 
 	private:
-		static Logger logger;
 		Window *mGameWindow;
 
 		Brickblock();

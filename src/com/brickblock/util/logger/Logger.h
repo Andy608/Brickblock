@@ -3,37 +3,30 @@
 
 #include <string>
 #include <glad\glad.h>
-#include <log4cxx\logger.h>
+
+#include "../libs/spdlog/spdlog.h"
 
 namespace bb
 {
 	class Logger
 	{
 	public:
-		enum Level : GLint 
-		{
-			LEVEL_TRACE,
-			LEVEL_DEBUG,
-			LEVEL_INFO,
-			LEVEL_WARN,
-			LEVEL_ERROR,
-			LEVEL_FATAL
-		};
-
-		Logger(std::string loggerName);
+		Logger(std::string loggerFormat);
 		~Logger();
 
-		void setMinimumLevel(const Level& minimumLogLevel);
-
-		void log(const Level &level, std::string message);
-		void log(std::string message);
-
-		const std::string& getName() const;
+		void	logTrace(const std::string& className, std::string message, GLboolean logToFile = GL_FALSE);
+		void	logDebug(const std::string& className, std::string message, GLboolean logToFile = GL_FALSE);
+		void	 logInfo(const std::string& className, std::string message, GLboolean logToFile = GL_FALSE);
+		void	 logWarn(const std::string& className, std::string message, GLboolean logToFile = GL_FALSE);
+		void	logError(const std::string& className, std::string message, GLboolean logToFile = GL_FALSE);
+		void logCritical(const std::string& className, std::string message, GLboolean logToFile = GL_FALSE);
 
 	private:
-		const std::string mLOGGER_NAME;
-		Level mMinimumLoggerLevel;
-		log4cxx::LoggerPtr mLogger;
+		const std::string mFORMAT;
+		std::shared_ptr<spdlog::logger> mConsoleLogger;
+
+		std::string getFormattedMessage(const std::string& className, std::string message);
+
 	};
 }
 

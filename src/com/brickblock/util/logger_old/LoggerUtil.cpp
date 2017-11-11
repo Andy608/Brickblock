@@ -1,4 +1,4 @@
-#include <log4cxx\helpers\exception.h>
+/*#include <log4cxx\helpers\exception.h>
 #include <log4cxx\basicconfigurator.h>
 #include "LoggerUtil.h"
 //#include "FileDirectory.h"
@@ -6,7 +6,7 @@
 using namespace bb;
 
 LoggerUtil* LoggerUtil::instance = nullptr;
-Logger LoggerUtil::logger = Logger("LoggerUtil");
+Logger* LoggerUtil::logger = new Logger("LoggerUtil");
 const std::wstring LoggerUtil::CONSOLE_HEADING = L"[%5p] (%c.cpp:%L) T%r - %m%n";
 const std::wstring LoggerUtil::FILE_HEADING = L"%d{MM/dd/yyyy} %d{%I:%M:%S} [%5p | Thread: %t] (%c.cpp:%L) T%r	- %m%n";
 GLboolean LoggerUtil::isConsoleAppender = GL_FALSE;
@@ -20,11 +20,8 @@ LoggerUtil* LoggerUtil::init()
 		log4cxx::Logger::getRootLogger()->setLevel(log4cxx::Level::getTrace());
 	}
 
-	logger.setMinimumLevel(Logger::LEVEL_TRACE);
-
 	return instance;
 }
-
 
 void LoggerUtil::initConsoleAppender()
 {
@@ -33,15 +30,14 @@ void LoggerUtil::initConsoleAppender()
 		log4cxx::BasicConfigurator::configure(log4cxx::AppenderPtr(instance->mConsoleAppender));
 		instance->mConsoleAppender = new log4cxx::ConsoleAppender(instance->mConsoleLayout);
 		log4cxx::Logger::getRootLogger()->addAppender(instance->mConsoleAppender);
-		logger.log(Logger::Level::LEVEL_DEBUG, "LoggerUtil is successfully initialized for console logging!");
+		logger->log(Logger::Level::LEVEL_DEBUG, "LoggerUtil is successfully initialized for console logging!");
 		isConsoleAppender = GL_TRUE;
 	}
 }
 
-
 void LoggerUtil::initFileAppender()
 {
-	/*if (!isFileAppender)
+	if (!isFileAppender)
 	{
 		try
 		{
@@ -61,19 +57,17 @@ void LoggerUtil::initFileAppender()
 
 		logger.log(Logger::Level::LEVEL_DEBUG, "LoggerUtil is successfully initialized for file logging!");
 		isFileAppender = GL_TRUE;
-	}*/
+	}
 }
-
 
 LoggerUtil::LoggerUtil()
 	try :
-	//mLOGGER_DIRECTORY(nullptr),
-	//mLOG_FILE(nullptr),
+	mLOGGER_DIRECTORY(nullptr),
+	mLOG_FILE(nullptr),
 	mConsoleLayout(new log4cxx::PatternLayout(CONSOLE_HEADING)),
-	//mFileLayout(new log4cxx::PatternLayout(FILE_HEADING)),
-	mConsoleAppender(nullptr),
-	//mFileAppender(nullptr),
-	mLoggerPool()
+	mFileLayout(new log4cxx::PatternLayout(FILE_HEADING)),
+	mConsoleAppender(nullptr)
+	mFileAppender(nullptr),
 {
 
 }
@@ -82,9 +76,10 @@ catch (log4cxx::helpers::Exception& e)
 	throw(e);
 }
 
-
 LoggerUtil::~LoggerUtil()
 {
-	logger.log(Logger::Level::LEVEL_DEBUG, "Deleting LoggerUtil...");
-	//delete mLOG_FILE;
+	logger->log(Logger::Level::LEVEL_DEBUG, "Deleting LoggerUtil...");
+	delete logger;
+	delete mLOG_FILE;
 }
+*/

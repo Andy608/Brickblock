@@ -1,13 +1,11 @@
-#include <log4cxx\basicconfigurator.h>
 #include "Logger.h"
-
 using namespace bb;
 
-Logger::Logger(std::string loggerName) : 
-	mLOGGER_NAME(loggerName),
-	mLogger(log4cxx::LoggerPtr(log4cxx::Logger::getLogger(mLOGGER_NAME)))
+Logger::Logger(std::string loggerFormat) :
+	mFORMAT(loggerFormat), mConsoleLogger(spdlog::stdout_color_mt("bbLogger"))
 {
-
+	mConsoleLogger->set_pattern(mFORMAT);
+	mConsoleLogger->info("Creating Brickblock Logger!");
 }
 
 Logger::~Logger()
@@ -15,63 +13,43 @@ Logger::~Logger()
 
 }
 
-void Logger::setMinimumLevel(const Level& minimumLogLevel)
+void Logger::logTrace(const std::string& className, std::string message, GLboolean logToFile)
 {
-	mMinimumLoggerLevel = minimumLogLevel;
-	switch (mMinimumLoggerLevel)
+	std::string logMessage = getFormattedMessage(className, message);
+	mConsoleLogger->trace(logMessage);
+
+	if (logToFile)
 	{
-	case Level::LEVEL_TRACE:
-		mLogger->setLevel(log4cxx::Level::getTrace());
-		break;
-	case Level::LEVEL_DEBUG:
-		mLogger->setLevel(log4cxx::Level::getDebug());
-		break;
-	case Level::LEVEL_WARN:
-		mLogger->setLevel(log4cxx::Level::getWarn());
-		break;
-	case Level::LEVEL_ERROR:
-		mLogger->setLevel(log4cxx::Level::getError());
-		break;
-	case Level::LEVEL_FATAL:
-		mLogger->setLevel(log4cxx::Level::getFatal());
-		break;
-	default:
-		mLogger->setLevel(log4cxx::Level::getInfo());
-		break;
+
 	}
 }
 
-void Logger::log(const Level &level, std::string message)
+void Logger::logDebug(const std::string& className, std::string message, GLboolean logToFile)
 {
-	switch (level)
-	{
-	case LEVEL_TRACE:
-		LOG4CXX_TRACE(mLogger, message);
-		break;
-	case LEVEL_DEBUG:
-		LOG4CXX_DEBUG(mLogger, message);
-		break;
-	case LEVEL_WARN:
-		LOG4CXX_WARN(mLogger, message);
-		break;
-	case LEVEL_ERROR:
-		LOG4CXX_ERROR(mLogger, message);
-		break;
-	case LEVEL_FATAL:
-		LOG4CXX_FATAL(mLogger, message);
-		break;
-	default:
-		LOG4CXX_INFO(mLogger, message);
-		break;
-	}
+
 }
 
-void Logger::log(std::string message)
+void Logger::logInfo(const std::string& className, std::string message, GLboolean logToFile)
 {
-	log(Level::LEVEL_INFO, message);
+
 }
 
-const std::string& Logger::getName() const
+void Logger::logWarn(const std::string& className, std::string message, GLboolean logToFile)
 {
-	return mLOGGER_NAME;
+
+}
+
+void Logger::logError(const std::string& className, std::string message, GLboolean logToFile)
+{
+
+}
+
+void Logger::logCritical(const std::string& className, std::string message, GLboolean logToFile)
+{
+
+}
+
+std::string getFormattedMessage(const std::string& className, std::string message)
+{
+	return "[" + className + "] - " + message;
 }
