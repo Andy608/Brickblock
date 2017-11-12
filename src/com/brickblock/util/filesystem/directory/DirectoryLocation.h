@@ -9,7 +9,14 @@ namespace bb
 	class DirectoryLocation
 	{
 	public:
-		DirectoryLocation(std::string parentPath, std::string directoryName, GLboolean isPathRelative);
+
+		enum EnumPathType : GLint
+		{
+			ABSOLUTE_PATH,
+			RELATIVE_PATH
+		};
+
+		DirectoryLocation(std::string parentPath, std::string directoryName, const EnumPathType& PATH_TYPE);
 		~DirectoryLocation();
 
 		std::string getPath() const;

@@ -1,0 +1,20 @@
+[11/12/17 03:51:40 AM] [INFO] (Logger:BBFileLogger) [Main.cpp] - HELLO WORLD!!!
+[11/12/17 03:51:40 AM] [WARNING] (Logger:BBFileLogger) [Main.cpp] - HELLO WORLD!!!
+[11/12/17 03:51:40 AM] [ERROR] (Logger:BBFileLogger) [Main.cpp] - HELLO WORLD!!!
+[11/12/17 03:51:40 AM] [CRITICAL]  (Logger:BBFileLogger) [Main.cpp] - HELLO WORLD!!!
+[11/12/17 03:52:54 AM] [INFO] (Logger:BBFileLogger) [Main.cpp] - FILE HELLO WORLD!!!
+[11/12/17 03:52:54 AM] [WARNING] (Logger:BBFileLogger) [Main.cpp] - FILE HELLO WORLD!!!
+[11/12/17 03:52:54 AM] [ERROR] (Logger:BBFileLogger) [Main.cpp] - FILE HELLO WORLD!!!
+[11/12/17 03:52:54 AM] [CRITICAL]  (Logger:BBFileLogger) [Main.cpp] - FILE HELLO WORLD!!!
+[11/12/17 03:52:54 AM] [INFO] (Logger:BBFileLogger) [Main.cpp] - CONSOLE AND FILE HELLO WORLD!!!
+[11/12/17 03:52:54 AM] [WARNING] (Logger:BBFileLogger) [Main.cpp] - CONSOLE AND FILE HELLO WORLD!!!
+[11/12/17 03:52:54 AM] [ERROR] (Logger:BBFileLogger) [Main.cpp] - CONSOLE AND FILE HELLO WORLD!!!
+[11/12/17 03:52:54 AM] [CRITICAL]  (Logger:BBFileLogger) [Main.cpp] - CONSOLE AND FILE HELLO WORLD!!!
+[11/12/17 04:01:37 AM] [INFO] (Logger:BBFileLogger) [Main.cpp] - FILE HELLO WORLD!!!
+[11/12/17 04:01:37 AM] [WARNING] (Logger:BBFileLogger) [Main.cpp] - FILE HELLO WORLD!!!
+[11/12/17 04:01:37 AM] [ERROR] (Logger:BBFileLogger) [Main.cpp] - FILE HELLO WORLD!!!
+[11/12/17 04:01:37 AM] [CRITICAL]  (Logger:BBFileLogger) [Main.cpp] - FILE HELLO WORLD!!!
+[11/12/17 04:01:37 AM] [INFO] (Logger:BBFileLogger) [Main.cpp] - CONSOLE AND FILE HELLO WORLD!!!
+[11/12/17 04:01:37 AM] [WARNING] (Logger:BBFileLogger) [Main.cpp] - CONSOLE AND FILE HELLO WORLD!!!
+[11/12/17 04:01:37 AM] [ERROR] (Logger:BBFileLogger) [Main.cpp] - CONSOLE AND FILE HELLO WORLD!!!
+[11/12/17 04:01:37 AM] [CRITICAL]  (Logger:BBFileLogger) [Main.cpp] - CONSOLE AND FILE HELLO WORLD!!!

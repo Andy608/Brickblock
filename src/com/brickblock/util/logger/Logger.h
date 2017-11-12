@@ -3,30 +3,33 @@
 
 #include <string>
 #include <glad\glad.h>
-
 #include "../libs/spdlog/spdlog.h"
 
 namespace bb
 {
 	class Logger
 	{
-	public:
-		Logger(std::string loggerFormat);
-		~Logger();
-
-		void	logTrace(const std::string& className, std::string message, GLboolean logToFile = GL_FALSE);
-		void	logDebug(const std::string& className, std::string message, GLboolean logToFile = GL_FALSE);
-		void	 logInfo(const std::string& className, std::string message, GLboolean logToFile = GL_FALSE);
-		void	 logWarn(const std::string& className, std::string message, GLboolean logToFile = GL_FALSE);
-		void	logError(const std::string& className, std::string message, GLboolean logToFile = GL_FALSE);
-		void logCritical(const std::string& className, std::string message, GLboolean logToFile = GL_FALSE);
-
-	private:
+	protected:
+		static const std::string DEFAULT_FORMAT;
 		const std::string mFORMAT;
-		std::shared_ptr<spdlog::logger> mConsoleLogger;
 
 		std::string getFormattedMessage(const std::string& className, std::string message);
 
+	public:
+		enum class EnumLogLocation : GLuint
+		{
+			CONSOLE, FILE, CONSOLE_AND_FILE
+		};
+
+		Logger(std::string loggerFormat = DEFAULT_FORMAT);
+		~Logger();
+
+		virtual void	logTrace(const std::string& className, std::string message) = 0;
+		virtual void	logDebug(const std::string& className, std::string message) = 0;
+		virtual void	 logInfo(const std::string& className, std::string message) = 0;
+		virtual void	 logWarn(const std::string& className, std::string message) = 0;
+		virtual void	logError(const std::string& className, std::string message) = 0;
+		virtual void logCritical(const std::string& className, std::string message) = 0;
 	};
 }
 

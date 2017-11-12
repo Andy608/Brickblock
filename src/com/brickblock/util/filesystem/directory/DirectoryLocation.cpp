@@ -3,8 +3,8 @@
 using namespace bb;
 
 
-DirectoryLocation::DirectoryLocation(std::string parentPath, std::string directoryName, GLboolean isPathRelative) : 
-	mPARENT_PATH(parentPath), mDIRECTORY_NAME(directoryName), mIS_PATH_RELATIVE(isPathRelative), mIsCreated(GL_FALSE)
+DirectoryLocation::DirectoryLocation(std::string parentPath, std::string directoryName, const EnumPathType& PATH_TYPE) :
+	mPARENT_PATH(parentPath), mDIRECTORY_NAME(directoryName), mIS_PATH_RELATIVE(PATH_TYPE), mIsCreated(GL_FALSE)
 {
 	
 }

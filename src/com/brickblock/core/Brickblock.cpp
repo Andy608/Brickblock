@@ -2,24 +2,26 @@
 #include "Brickblock.h"
 #include "BrickblockInfo.h"
 #include "../window/Window.h"
+#include "../util/logger/ConsoleLogger.h"
+#include "../util/logger/FileLogger.h"
+#include "../util/filesystem/directory/DirectoryLocation.h"
+#include "../util/filesystem/file/FileLocation.h"
 using namespace bb;
 
-Brickblock* Brickblock::brickblock = nullptr;
-Logger Brickblock::bbLogger = Logger("[%x %r] %l (Logger:%n) %v");
+Brickblock* Brickblock::instance = nullptr;
 
 Brickblock* Brickblock::init(GLint argc, GLint **argv)
 {
-	if (brickblock == nullptr)
+	if (instance == nullptr)
 	{
-		brickblock = new Brickblock();
-		brickblock->mGameWindow = Window::createWindow();
+		instance = new Brickblock();
 	}
 	else
 	{
 		//logger.log(Logger::LEVEL_WARN, "Brickblock is already initialized.");
 	}
 
-	return brickblock;
+	return instance;
 }
 
 Brickblock::Brickblock()
@@ -30,12 +32,11 @@ Brickblock::Brickblock()
 Brickblock::~Brickblock()
 {
 	//logger.log(Logger::LEVEL_TRACE, "Deleting Brickblock...");
-	delete mGameWindow;
 }
 
 void Brickblock::start()
 {
-	GLFWwindow* windowHandle = mGameWindow->getWindowHandle();
+	GLFWwindow* windowHandle = Window::getInstance().getWindowHandle();
 	while (!glfwWindowShouldClose(windowHandle))
 	{
 		glClearColor(1.0f, 0.6f, 0.3f, 1.0f);

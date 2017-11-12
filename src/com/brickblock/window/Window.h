@@ -12,19 +12,21 @@ namespace bb
 	class Window
 	{
 	public:
-		static Window* createWindow();
+		static Window& getInstance()
+		{
+			static Window instance;
+			return instance;
+		}
+
+		Window(Window const& copy) = delete;
+		void operator=(Window const& copy) = delete;
 
 		const GLFWvidmode *mVIDEO_MODE;
 		const std::string mTITLE;
 		
-		~Window();
-
 		GLFWwindow* getWindowHandle() const;
 
 	private:
-		static Window *window;
-		static Logger *logger;
-
 		static const GLFWvidmode* initGLFW();
 		static const std::string initRandomizedTitle();
 
@@ -40,12 +42,13 @@ namespace bb
 		static void windowPositionCallback(GLFWwindow* windowHandle, GLint xPosition, GLint yPosition);
 		static void windowSizeCallback(GLFWwindow* windowHandle, GLint windowWidth, GLint windowHeight);
 
-		GLint mWidth;
-		GLint mHeight;
+		static GLint width;
+		static GLint height;
 
 		GLFWwindow *mWindowHandle;
 
 		Window();
+		~Window();
 
 		void initWindowCallbacks() const;
 		void initWindowHints() const;

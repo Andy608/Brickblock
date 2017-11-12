@@ -4,21 +4,8 @@
 #include "../core/BrickblockInfo.h"
 using namespace bb;
 
-Window* Window::window = nullptr;
-
-Window* Window::createWindow()
-{
-	if (window == nullptr)
-	{
-		window = new Window();
-	}
-	else
-	{
-		//Logger warn
-	}
-
-	return window;
-}
+GLint Window::width = 0;
+GLint Window::height = 0;
 
 const GLFWvidmode* Window::initGLFW()
 {
@@ -48,7 +35,7 @@ Window::Window() :
 	initWindowHints();
 	initWindowSize();
 
-	mWindowHandle = glfwCreateWindow(mWidth, mHeight, mTITLE.c_str(), nullptr, nullptr);
+	mWindowHandle = glfwCreateWindow(width, height, mTITLE.c_str(), nullptr, nullptr);
 	glfwHideWindow(mWindowHandle);
 
 	if (mWindowHandle == nullptr)
@@ -67,7 +54,7 @@ Window::Window() :
 		}
 
 		initWindowCallbacks();
-		glViewport(0, 0, mWidth, mHeight);
+		glViewport(0, 0, width, height);
 		glfwShowWindow(mWindowHandle);
 	}
 
@@ -110,15 +97,15 @@ void Window::initWindowHints() const
 void Window::initWindowSize()
 {
 	//Get settings from file in the future.
-	mWidth = mVIDEO_MODE->width / 2;
-	mHeight = mVIDEO_MODE->height / 2;
+	width = mVIDEO_MODE->width / 2;
+	height = mVIDEO_MODE->height / 2;
 }
 
 void Window::updateViewportSize(GLint viewportWidth, GLint viewportHeight)
 {
-	window->mWidth = viewportWidth;
-	window->mHeight = viewportHeight;
-	glViewport(0, 0, window->mWidth, window->mHeight);
+	width = viewportWidth;
+	height = viewportHeight;
+	glViewport(0, 0, width, height);
 }
 
 void Window::cursorPositionCallback(GLFWwindow* windowHandle, GLdouble xPosition, GLdouble yPosition)
