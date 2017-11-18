@@ -35,6 +35,7 @@ int main(int argc, int **argv)
 	BBLogger::getLogger().logError(CLASS_NAME, "CONSOLE AND FILE HELLO WORLD!!!", Logger::EnumLogLocation::CONSOLE_AND_FILE);
 	BBLogger::getLogger().logCritical(CLASS_NAME, "CONSOLE AND FILE HELLO WORLD!!!", Logger::EnumLogLocation::CONSOLE_AND_FILE);
 
+
 	try
 	{
 		brickblock = Brickblock::init(argc, argv);

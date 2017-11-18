@@ -24,8 +24,8 @@ namespace bb
 		std::string getDirectoryName() const;
 
 		GLboolean isPathRelative() const;
-		GLboolean createDirectory();
 		GLboolean isDirectoryCreated() const;
+		GLboolean createDirectory();
 
 		operator std::string() const;
 

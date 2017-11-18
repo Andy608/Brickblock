@@ -22,7 +22,7 @@ namespace bb
 		};
 
 		Logger(std::string loggerFormat = DEFAULT_FORMAT);
-		~Logger();
+		virtual ~Logger();
 
 		virtual void	logTrace(const std::string& className, std::string message) = 0;
 		virtual void	logDebug(const std::string& className, std::string message) = 0;

@@ -18,6 +18,7 @@ namespace bb
 		void start();
 
 	private:
+		static std::string CLASS_NAME;
 		static Brickblock* instance;
 		Brickblock();
 	};

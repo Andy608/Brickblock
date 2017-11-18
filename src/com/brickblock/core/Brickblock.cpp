@@ -6,9 +6,13 @@
 #include "../util/logger/FileLogger.h"
 #include "../util/filesystem/directory/DirectoryLocation.h"
 #include "../util/filesystem/file/FileLocation.h"
+
+#include "../util/filesystem/directory/DirectoryList.h"
+#include "../graphics/resource/shader/Shader.h"
 using namespace bb;
 
 Brickblock* Brickblock::instance = nullptr;
+std::string Brickblock::CLASS_NAME = "Brickblock.cpp";
 
 Brickblock* Brickblock::init(GLint argc, GLint **argv)
 {
@@ -18,7 +22,7 @@ Brickblock* Brickblock::init(GLint argc, GLint **argv)
 	}
 	else
 	{
-		//logger.log(Logger::LEVEL_WARN, "Brickblock is already initialized.");
+		BBLogger::getLogger().logWarn(CLASS_NAME, "Brickblock is already initialized.", Logger::EnumLogLocation::CONSOLE_AND_FILE);
 	}
 
 	return instance;
@@ -26,17 +30,24 @@ Brickblock* Brickblock::init(GLint argc, GLint **argv)
 
 Brickblock::Brickblock()
 {
-	//logger.log(Logger::LEVEL_TRACE, "Creating Brickblock...");
+
 }
 
 Brickblock::~Brickblock()
 {
-	//logger.log(Logger::LEVEL_TRACE, "Deleting Brickblock...");
 }
 
 void Brickblock::start()
 {
-	GLFWwindow* windowHandle = Window::getInstance().getWindowHandle();
+	GLFWwindow* windowHandle = Window::getInstance().getGLFWWindow();
+
+	Shader *vertexShaderTest = new Shader(Shader::EnumShaderType::VERTEX, new FileLocation(*DirectoryList::getInstance().mRootDirectory, "vertex_shader_test", FileLocation::VS_EXT));
+	vertexShaderTest->load();
+	vertexShaderTest->unload();
+	vertexShaderTest->load();
+
+	delete vertexShaderTest;
+
 	while (!glfwWindowShouldClose(windowHandle))
 	{
 		glClearColor(1.0f, 0.6f, 0.3f, 1.0f);

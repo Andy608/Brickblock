@@ -17,7 +17,7 @@ FileLocation::FileLocation(const DirectoryLocation& PARENT_DIR, std::string file
 
 FileLocation::~FileLocation()
 {
-	//logger->log(Logger::LEVEL_DEBUG, "DELETING LOGGER");
+
 }
 
 std::string FileLocation::getName() const
@@ -42,12 +42,25 @@ std::string FileLocation::getParentPath() const
 
 std::string FileLocation::getPath() const
 {
-	return mPARENT_DIRECTORY.getPath() + "/" + getNameAndExt();
+	if (mPARENT_DIRECTORY.getPath().length() == 0)
+	{
+		return getNameAndExt();
+	}
+	else
+	{
+		return mPARENT_DIRECTORY.getPath() + "/" + getNameAndExt();
+	}
 }
 
 const DirectoryLocation& FileLocation::getParentDirectory() const
 {
 	return mPARENT_DIRECTORY;
+}
+
+GLboolean FileLocation::isExist() const
+{
+	std::ifstream inFileStream(getPath());
+	return inFileStream.good();
 }
 
 const GLboolean FileLocation::isCreated() const

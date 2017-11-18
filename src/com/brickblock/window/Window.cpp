@@ -80,7 +80,7 @@ void Window::initWindowCallbacks() const
 	glfwSetWindowSizeCallback(mWindowHandle, windowSizeCallback);
 }
 
-GLFWwindow* Window::getWindowHandle() const
+GLFWwindow* Window::getGLFWWindow() const
 {
 	return mWindowHandle;
 }

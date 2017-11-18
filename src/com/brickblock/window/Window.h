@@ -18,13 +18,13 @@ namespace bb
 			return instance;
 		}
 
-		Window(Window const& copy) = delete;
-		void operator=(Window const& copy) = delete;
+		Window(Window const &copy) = delete;
+		void operator=(Window const &copy) = delete;
 
 		const GLFWvidmode *mVIDEO_MODE;
 		const std::string mTITLE;
 		
-		GLFWwindow* getWindowHandle() const;
+		GLFWwindow* getGLFWWindow() const;
 
 	private:
 		static const GLFWvidmode* initGLFW();
