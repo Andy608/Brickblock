@@ -4,6 +4,7 @@
 #include <fstream>
 #include <string>
 #include <sstream>
+#include <vector>
 
 namespace bb
 {
@@ -21,6 +22,7 @@ namespace bb
 		void operator=(StringFileReader const &copy) = delete;
 
 		void getContents(const FileLocation& FILE, std::string& fileContents);
+		void getContentsByLine(const FileLocation& FILE, std::vector<std::string>& fileContents);
 
 	private:
 		static const std::string CLASS_NAME;

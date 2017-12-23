@@ -2,10 +2,11 @@
 #include "../filesystem/file/FileLocation.h"
 using namespace bb;
 
-FileLogger::FileLogger(std::string fileLoggerName, FileLocation *fileLocation, std::string fileLoggerFormat) :
+FileLogger::FileLogger(std::string fileLoggerName, FileLocation *fileLocation, std::string fileLoggerFormat, spdlog::level::level_enum loggerLevel) :
 	Logger(fileLoggerFormat), mFileLocation(fileLocation), mFileLogger(spdlog::basic_logger_mt(fileLoggerName, fileLocation->getPath()))
 {
 	mFileLogger->set_pattern(mFORMAT);
+	mFileLogger->set_level(loggerLevel);
 }
 
 FileLogger::~FileLogger()

@@ -1,9 +1,10 @@
 #include "Resource.h"
 using namespace bb;
 
-Resource::Resource()
+Resource::Resource() :
+	mIsLoaded(GL_FALSE)
 {
-
+	
 }
 
 Resource::~Resource()

@@ -26,13 +26,34 @@ void StringFileReader::getContents(const FileLocation& FILE, std::string& fileCo
 		mStringStream->str(std::string());
 		*mStringStream << mReadStream->rdbuf();
 		fileContents = mStringStream->str();
+		BBLogger::getLogger().logDebug(CLASS_NAME, "File Contents : " + fileContents, Logger::EnumLogLocation::CONSOLE_AND_FILE);
 	}
 	else
 	{
 		BBLogger::getLogger().logError(CLASS_NAME, "Unable to read file: " + FILE.getPath(), Logger::EnumLogLocation::CONSOLE_AND_FILE);
 	}
 
-	BBLogger::getLogger().logDebug(CLASS_NAME, "File Contents : " + fileContents, Logger::EnumLogLocation::CONSOLE_AND_FILE);
+	mReadStream->close();
+}
+
+void StringFileReader::getContentsByLine(const FileLocation& FILE, std::vector<std::string>& fileContents)
+{
+	mReadStream->open(FILE.getPath(), std::ifstream::in);
+
+	if (mReadStream->is_open())
+	{
+		fileContents.clear();
+		std::string line;
+
+		while (std::getline(*mReadStream, line))
+		{
+			fileContents.push_back(line);
+		}
+	}
+	else
+	{
+		BBLogger::getLogger().logError(CLASS_NAME, "Unable to read file: " + FILE.getPath(), Logger::EnumLogLocation::CONSOLE_AND_FILE);
+	}
 
 	mReadStream->close();
 }

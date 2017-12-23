@@ -10,12 +10,13 @@ namespace bb
 	class Logger
 	{
 	protected:
-		static const std::string DEFAULT_FORMAT;
 		const std::string mFORMAT;
 
 		std::string getFormattedMessage(const std::string& className, std::string message);
 
 	public:
+		static const std::string DEFAULT_FORMAT;
+
 		enum class EnumLogLocation : GLuint
 		{
 			CONSOLE, FILE, CONSOLE_AND_FILE

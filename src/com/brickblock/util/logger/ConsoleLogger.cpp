@@ -3,10 +3,11 @@ using namespace bb;
 
 const std::string ConsoleLogger::CLASS_NAME = "ConsoleLogger.cpp";
 
-ConsoleLogger::ConsoleLogger(std::string consoleLoggerName, std::string consoleLoggerFormat) : Logger(consoleLoggerFormat),
+ConsoleLogger::ConsoleLogger(std::string consoleLoggerName, std::string consoleLoggerFormat, spdlog::level::level_enum loggerLevel) : Logger(consoleLoggerFormat),
 	mConsoleLogger(spdlog::stdout_color_mt(consoleLoggerName))
 {
 	mConsoleLogger->set_pattern(mFORMAT);
+	mConsoleLogger->set_level(loggerLevel);
 	logInfo(CLASS_NAME, "Creating console logger!");
 }
 

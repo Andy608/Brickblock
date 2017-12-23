@@ -2,6 +2,7 @@
 #define BB_STRINGUTIL_H_
 
 #include <string>
+#include <vector>
 
 namespace bb
 {
@@ -9,6 +10,8 @@ namespace bb
 	{
 		static std::string wtos(const std::wstring& wstr);
 		static std::wstring stow(const std::string& str);
+
+		static void StringUtil::split(const char* str, char delimiter, std::vector<std::string>& result);
 	};
 }
 

@@ -11,7 +11,7 @@ namespace bb
 	class FileLogger : public Logger
 	{
 	public:
-		FileLogger(std::string fileLoggerName, FileLocation *fileLocation, std::string fileLoggerFormat = Logger::DEFAULT_FORMAT);
+		FileLogger(std::string fileLoggerName, FileLocation *fileLocation, std::string fileLoggerFormat = Logger::DEFAULT_FORMAT, spdlog::level::level_enum loggerLevel = spdlog::level::trace);
 		~FileLogger();
 
 		void	logTrace(const std::string& className, std::string message) override;

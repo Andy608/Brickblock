@@ -355,3 +355,171 @@ void main(void)
    gl_Position = gl_ModelViewProjectionMatrix * a;
 
 }  
+[12/17/17 05:20:22 PM] [INFO] (Logger:BBFileLogger) [Main.cpp] - FILE HELLO WORLD!!!
+[12/17/17 05:20:22 PM] [WARNING] (Logger:BBFileLogger) [Main.cpp] - FILE HELLO WORLD!!!
+[12/17/17 05:20:22 PM] [ERROR] (Logger:BBFileLogger) [Main.cpp] - FILE HELLO WORLD!!!
+[12/17/17 05:20:22 PM] [CRITICAL]  (Logger:BBFileLogger) [Main.cpp] - FILE HELLO WORLD!!!
+[12/17/17 05:20:22 PM] [INFO] (Logger:BBFileLogger) [Main.cpp] - CONSOLE AND FILE HELLO WORLD!!!
+[12/17/17 05:20:22 PM] [WARNING] (Logger:BBFileLogger) [Main.cpp] - CONSOLE AND FILE HELLO WORLD!!!
+[12/17/17 05:20:22 PM] [ERROR] (Logger:BBFileLogger) [Main.cpp] - CONSOLE AND FILE HELLO WORLD!!!
+[12/17/17 05:20:22 PM] [CRITICAL]  (Logger:BBFileLogger) [Main.cpp] - CONSOLE AND FILE HELLO WORLD!!!
+[12/17/17 05:20:23 PM] [ERROR] (Logger:BBFileLogger) [Shader.cpp] - Could not compile shader: ERROR: 0:1: '' : syntax error: #version directive must occur in a shader before anything else
+ERROR: 0:1: 'main' : illegal use of type 'void' 
+ERROR: 0:? : 'pre-mature EOF' : syntax error syntax error
+
+
+[12/17/17 05:20:23 PM] [ERROR] (Logger:BBFileLogger) [Shader.cpp] - Could not compile shader: ERROR: 0:1: '' : syntax error: #version directive must occur in a shader before anything else
+ERROR: 0:1: 'main' : illegal use of type 'void' 
+ERROR: 0:? : 'pre-mature EOF' : syntax error syntax error
+
+
+[12/17/17 05:22:26 PM] [INFO] (Logger:BBFileLogger) [Main.cpp] - FILE HELLO WORLD!!!
+[12/17/17 05:22:26 PM] [WARNING] (Logger:BBFileLogger) [Main.cpp] - FILE HELLO WORLD!!!
+[12/17/17 05:22:26 PM] [ERROR] (Logger:BBFileLogger) [Main.cpp] - FILE HELLO WORLD!!!
+[12/17/17 05:22:26 PM] [CRITICAL]  (Logger:BBFileLogger) [Main.cpp] - FILE HELLO WORLD!!!
+[12/17/17 05:22:26 PM] [INFO] (Logger:BBFileLogger) [Main.cpp] - CONSOLE AND FILE HELLO WORLD!!!
+[12/17/17 05:22:26 PM] [WARNING] (Logger:BBFileLogger) [Main.cpp] - CONSOLE AND FILE HELLO WORLD!!!
+[12/17/17 05:22:26 PM] [ERROR] (Logger:BBFileLogger) [Main.cpp] - CONSOLE AND FILE HELLO WORLD!!!
+[12/17/17 05:22:26 PM] [CRITICAL]  (Logger:BBFileLogger) [Main.cpp] - CONSOLE AND FILE HELLO WORLD!!!
+[12/17/17 06:33:20 PM] [INFO] (Logger:BBFileLogger) [Main.cpp] - FILE HELLO WORLD!!!
+[12/17/17 06:33:20 PM] [WARNING] (Logger:BBFileLogger) [Main.cpp] - FILE HELLO WORLD!!!
+[12/17/17 06:33:20 PM] [ERROR] (Logger:BBFileLogger) [Main.cpp] - FILE HELLO WORLD!!!
+[12/17/17 06:33:20 PM] [CRITICAL]  (Logger:BBFileLogger) [Main.cpp] - FILE HELLO WORLD!!!
+[12/17/17 06:33:20 PM] [INFO] (Logger:BBFileLogger) [Main.cpp] - CONSOLE AND FILE HELLO WORLD!!!
+[12/17/17 06:33:20 PM] [WARNING] (Logger:BBFileLogger) [Main.cpp] - CONSOLE AND FILE HELLO WORLD!!!
+[12/17/17 06:33:20 PM] [ERROR] (Logger:BBFileLogger) [Main.cpp] - CONSOLE AND FILE HELLO WORLD!!!
+[12/17/17 06:33:20 PM] [CRITICAL]  (Logger:BBFileLogger) [Main.cpp] - CONSOLE AND FILE HELLO WORLD!!!
+[12/17/17 09:57:23 PM] [INFO] (Logger:BBFileLogger) [Main.cpp] - FILE HELLO WORLD!!!
+[12/17/17 09:57:23 PM] [INFO] (Logger:BBFileLogger) [Main.cpp] - CONSOLE AND FILE HELLO WORLD!!!
+[12/17/17 09:57:23 PM] [INFO] (Logger:BBFileLogger) [StringFileReader.cpp] - File Contents : #version 330 core
+
+void main(void)
+{
+	gl_Position = vec4(0.0, 0.0, 0.0, 0.0);
+}  
+[12/17/17 09:57:23 PM] [INFO] (Logger:BBFileLogger) [Shader.cpp] - Successfully compiled shader!
+[12/17/17 09:57:23 PM] [INFO] (Logger:BBFileLogger) [Shader.cpp] - #version 330 core
+
+void main(void)
+{
+	gl_Position = vec4(0.0, 0.0, 0.0, 0.0);
+}  
+[12/17/17 09:57:23 PM] [INFO] (Logger:BBFileLogger) [StringFileReader.cpp] - File Contents : #version 330 core
+
+void main(void)
+{
+	gl_Position = vec4(0.0, 0.0, 0.0, 0.0);
+}  
+[12/17/17 09:57:23 PM] [INFO] (Logger:BBFileLogger) [Shader.cpp] - Successfully compiled shader!
+[12/17/17 09:57:23 PM] [INFO] (Logger:BBFileLogger) [Shader.cpp] - #version 330 core
+
+void main(void)
+{
+	gl_Position = vec4(0.0, 0.0, 0.0, 0.0);
+}  
+[12/17/17 10:09:20 PM] [TRACE] (Logger:BBFileLogger) [Main.cpp] - FILE HELLO WORLD!!!
+[12/17/17 10:09:20 PM] [DEBUG] (Logger:BBFileLogger) [Main.cpp] - FILE HELLO WORLD!!!
+[12/17/17 10:09:20 PM] [TRACE] (Logger:BBFileLogger) [Main.cpp] - CONSOLE AND FILE HELLO WORLD!!!
+[12/17/17 10:09:20 PM] [DEBUG] (Logger:BBFileLogger) [Main.cpp] - CONSOLE AND FILE HELLO WORLD!!!
+[12/17/17 10:09:21 PM] [DEBUG] (Logger:BBFileLogger) [StringFileReader.cpp] - File Contents : #version 330 core
+
+void main(void)
+{
+	gl_Position = vec4(0.0, 0.0, 0.0, 0.0);
+}  
+[12/17/17 10:09:21 PM] [DEBUG] (Logger:BBFileLogger) [Shader.cpp] - Successfully compiled shader!
+[12/17/17 10:09:21 PM] [DEBUG] (Logger:BBFileLogger) [Shader.cpp] - #version 330 core
+
+void main(void)
+{
+	gl_Position = vec4(0.0, 0.0, 0.0, 0.0);
+}  
+[12/17/17 10:09:21 PM] [DEBUG] (Logger:BBFileLogger) [StringFileReader.cpp] - File Contents : #version 330 core
+
+void main(void)
+{
+	gl_Position = vec4(0.0, 0.0, 0.0, 0.0);
+}  
+[12/17/17 10:09:21 PM] [DEBUG] (Logger:BBFileLogger) [Shader.cpp] - Successfully compiled shader!
+[12/17/17 10:09:21 PM] [DEBUG] (Logger:BBFileLogger) [Shader.cpp] - #version 330 core
+
+void main(void)
+{
+	gl_Position = vec4(0.0, 0.0, 0.0, 0.0);
+}  
+[12/17/17 10:10:12 PM] [TRACE] (Logger:BBFileLogger) [Main.cpp] - FILE HELLO WORLD!!!
+[12/17/17 10:10:12 PM] [DEBUG] (Logger:BBFileLogger) [Main.cpp] - FILE HELLO WORLD!!!
+[12/17/17 10:10:12 PM] [INFO] (Logger:BBFileLogger) [Main.cpp] - FILE HELLO WORLD!!!
+[12/17/17 10:10:12 PM] [WARNING] (Logger:BBFileLogger) [Main.cpp] - FILE HELLO WORLD!!!
+[12/17/17 10:10:12 PM] [ERROR] (Logger:BBFileLogger) [Main.cpp] - FILE HELLO WORLD!!!
+[12/17/17 10:10:12 PM] [CRITICAL]  (Logger:BBFileLogger) [Main.cpp] - FILE HELLO WORLD!!!
+[12/17/17 10:10:12 PM] [TRACE] (Logger:BBFileLogger) [Main.cpp] - CONSOLE AND FILE HELLO WORLD!!!
+[12/17/17 10:10:12 PM] [DEBUG] (Logger:BBFileLogger) [Main.cpp] - CONSOLE AND FILE HELLO WORLD!!!
+[12/17/17 10:10:12 PM] [INFO] (Logger:BBFileLogger) [Main.cpp] - CONSOLE AND FILE HELLO WORLD!!!
+[12/17/17 10:10:12 PM] [WARNING] (Logger:BBFileLogger) [Main.cpp] - CONSOLE AND FILE HELLO WORLD!!!
+[12/17/17 10:10:12 PM] [ERROR] (Logger:BBFileLogger) [Main.cpp] - CONSOLE AND FILE HELLO WORLD!!!
+[12/17/17 10:10:12 PM] [CRITICAL]  (Logger:BBFileLogger) [Main.cpp] - CONSOLE AND FILE HELLO WORLD!!!
+[12/17/17 10:10:13 PM] [DEBUG] (Logger:BBFileLogger) [StringFileReader.cpp] - File Contents : #version 330 core
+
+void main(void)
+{
+	gl_Position = vec4(0.0, 0.0, 0.0, 0.0);
+}  
+[12/17/17 10:10:13 PM] [DEBUG] (Logger:BBFileLogger) [Shader.cpp] - Successfully compiled shader!
+[12/17/17 10:10:13 PM] [DEBUG] (Logger:BBFileLogger) [Shader.cpp] - #version 330 core
+
+void main(void)
+{
+	gl_Position = vec4(0.0, 0.0, 0.0, 0.0);
+}  
+[12/17/17 10:10:13 PM] [DEBUG] (Logger:BBFileLogger) [StringFileReader.cpp] - File Contents : #version 330 core
+
+void main(void)
+{
+	gl_Position = vec4(0.0, 0.0, 0.0, 0.0);
+}  
+[12/17/17 10:10:13 PM] [DEBUG] (Logger:BBFileLogger) [Shader.cpp] - Successfully compiled shader!
+[12/17/17 10:10:13 PM] [DEBUG] (Logger:BBFileLogger) [Shader.cpp] - #version 330 core
+
+void main(void)
+{
+	gl_Position = vec4(0.0, 0.0, 0.0, 0.0);
+}  
+[12/21/17 08:07:53 PM] [TRACE] (Logger:BBFileLogger) [Main.cpp] - FILE HELLO WORLD!!!
+[12/21/17 08:07:53 PM] [DEBUG] (Logger:BBFileLogger) [Main.cpp] - FILE HELLO WORLD!!!
+[12/21/17 08:07:53 PM] [INFO] (Logger:BBFileLogger) [Main.cpp] - FILE HELLO WORLD!!!
+[12/21/17 08:07:53 PM] [WARNING] (Logger:BBFileLogger) [Main.cpp] - FILE HELLO WORLD!!!
+[12/21/17 08:07:53 PM] [ERROR] (Logger:BBFileLogger) [Main.cpp] - FILE HELLO WORLD!!!
+[12/21/17 08:07:53 PM] [CRITICAL]  (Logger:BBFileLogger) [Main.cpp] - FILE HELLO WORLD!!!
+[12/21/17 08:07:53 PM] [TRACE] (Logger:BBFileLogger) [Main.cpp] - CONSOLE AND FILE HELLO WORLD!!!
+[12/21/17 08:07:53 PM] [DEBUG] (Logger:BBFileLogger) [Main.cpp] - CONSOLE AND FILE HELLO WORLD!!!
+[12/21/17 08:07:53 PM] [INFO] (Logger:BBFileLogger) [Main.cpp] - CONSOLE AND FILE HELLO WORLD!!!
+[12/21/17 08:07:53 PM] [WARNING] (Logger:BBFileLogger) [Main.cpp] - CONSOLE AND FILE HELLO WORLD!!!
+[12/21/17 08:07:53 PM] [ERROR] (Logger:BBFileLogger) [Main.cpp] - CONSOLE AND FILE HELLO WORLD!!!
+[12/21/17 08:07:53 PM] [CRITICAL]  (Logger:BBFileLogger) [Main.cpp] - CONSOLE AND FILE HELLO WORLD!!!
+[12/21/17 08:07:54 PM] [DEBUG] (Logger:BBFileLogger) [StringFileReader.cpp] - File Contents : #version 330 core
+
+void main(void)
+{
+	gl_Position = vec4(0.0, 0.0, 0.0, 0.0);
+}  
+[12/21/17 08:07:54 PM] [DEBUG] (Logger:BBFileLogger) [Shader.cpp] - Successfully compiled shader!
+[12/21/17 08:07:54 PM] [DEBUG] (Logger:BBFileLogger) [Shader.cpp] - #version 330 core
+
+void main(void)
+{
+	gl_Position = vec4(0.0, 0.0, 0.0, 0.0);
+}  
+[12/21/17 08:07:54 PM] [DEBUG] (Logger:BBFileLogger) [StringFileReader.cpp] - File Contents : #version 330 core
+
+void main(void)
+{
+	gl_Position = vec4(0.0, 0.0, 0.0, 0.0);
+}  
+[12/21/17 08:07:54 PM] [DEBUG] (Logger:BBFileLogger) [Shader.cpp] - Successfully compiled shader!
+[12/21/17 08:07:54 PM] [DEBUG] (Logger:BBFileLogger) [Shader.cpp] - #version 330 core
+
+void main(void)
+{
+	gl_Position = vec4(0.0, 0.0, 0.0, 0.0);
+}  

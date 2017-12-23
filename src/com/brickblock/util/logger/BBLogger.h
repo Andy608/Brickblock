@@ -25,9 +25,9 @@ namespace bb
 	public:
 		static BBLogger& getLogger()
 		{
-			static ConsoleLogger *consoleLogger = new ConsoleLogger("BBConsoleLogger");
+			static ConsoleLogger *consoleLogger = new ConsoleLogger("BBConsoleLogger", Logger::DEFAULT_FORMAT, spdlog::level::trace);
 			static FileLocation *fileLoggerLocation = new FileLocation(*DirectoryList::getInstance().mLoggerDirectory, "log", FileLocation::TXT_EXT);
-			static FileLogger *fileLogger = new FileLogger("BBFileLogger", fileLoggerLocation);
+			static FileLogger *fileLogger = new FileLogger("BBFileLogger", fileLoggerLocation, Logger::DEFAULT_FORMAT, spdlog::level::trace);
 			static BBLogger instance(consoleLogger, fileLogger);
 			return instance;
 		}

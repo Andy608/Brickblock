@@ -9,7 +9,7 @@ namespace bb
 	class ConsoleLogger : public Logger
 	{
 	public:
-		ConsoleLogger(std::string consoleLoggerName, std::string consoleLoggerFormat = Logger::DEFAULT_FORMAT);
+		ConsoleLogger(std::string consoleLoggerName, std::string consoleLoggerFormat = Logger::DEFAULT_FORMAT, spdlog::level::level_enum loggerLevel = spdlog::level::trace);
 		~ConsoleLogger();
 
 		void	logTrace(const std::string& className, std::string message) override;
