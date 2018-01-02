@@ -11,7 +11,7 @@ namespace bb
 		enum class BufferType : const GLuint
 		{
 			POSITION,
-			COLORS,
+			/*COLORS,*/ // Color will be a uniform passed into the brick shader.
 			TEX_COORDS,
 			NORMALS
 		};

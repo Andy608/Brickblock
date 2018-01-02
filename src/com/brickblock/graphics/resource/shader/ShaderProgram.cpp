@@ -15,7 +15,7 @@ ShaderProgram::ShaderProgram() :
 
 ShaderProgram::~ShaderProgram()
 {
-	BBLogger::getLogger().logInfo(CLASS_NAME, "Deleting Shader Program...", Logger::EnumLogLocation::CONSOLE_AND_FILE);
+	BBLogger::logInfo(CLASS_NAME, "Deleting Shader Program...", Logger::EnumLogLocation::CONSOLE_AND_FILE);
 
 	if (mIsLoaded)
 	{
@@ -81,7 +81,7 @@ void ShaderProgram::compile()
 
 	for (GLuint i = 0; i < mActiveShaders.size(); ++i)
 	{
-		BBLogger::getLogger().logInfo(CLASS_NAME, "Attaching shader: " + mActiveShaders.at(i)->getShaderLocation().getNameAndExt(), Logger::EnumLogLocation::CONSOLE_AND_FILE);
+		BBLogger::logInfo(CLASS_NAME, "Attaching shader: " + mActiveShaders.at(i)->getShaderLocation().getNameAndExt(), Logger::EnumLogLocation::CONSOLE_AND_FILE);
 		glAttachShader(mProgramID, mActiveShaders.at(i)->getGLShaderID());
 	}
 
@@ -98,6 +98,6 @@ void ShaderProgram::compile()
 	}
 	else
 	{
-		BBLogger::getLogger().logInfo(CLASS_NAME, "Successfully compiled shader program: " + mProgramID, Logger::EnumLogLocation::CONSOLE_AND_FILE);
+		BBLogger::logInfo(CLASS_NAME, "Successfully compiled shader program: " + mProgramID, Logger::EnumLogLocation::CONSOLE_AND_FILE);
 	}
 }

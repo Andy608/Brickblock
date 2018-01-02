@@ -2,7 +2,7 @@
 #define BB_SHADER_H_
 
 #include <string>
-#include <glad\glad.h>
+#include <glad/glad.h>
 #include "../Resource.h"
 
 namespace bb

@@ -18,102 +18,126 @@ BBLogger::~BBLogger()
 
 void BBLogger::logTrace(const std::string& className, std::string message, const Logger::EnumLogLocation& LOG_LOCATION)
 {
+	BBLogger &logger = getLogger();
+	ConsoleLogger *consoleLogger = logger.mConsoleLogger;
+	FileLogger *fileLogger = logger.mFileLogger;
+
 	switch (LOG_LOCATION)
 	{
 	case Logger::EnumLogLocation::CONSOLE:
-		mConsoleLogger->logTrace(className, message);
+		consoleLogger->logTrace(className, message);
 		break;
 	case Logger::EnumLogLocation::FILE:
-		mFileLogger->logTrace(className, message);
+		fileLogger->logTrace(className, message);
 		break;
 	case Logger::EnumLogLocation::CONSOLE_AND_FILE:
-		mConsoleLogger->logTrace(className, message);
-		mFileLogger->logTrace(className, message);
+		consoleLogger->logTrace(className, message);
+		fileLogger->logTrace(className, message);
 		break;
 	}
 }
 
 void BBLogger::logDebug(const std::string& className, std::string message, const Logger::EnumLogLocation& LOG_LOCATION)
 {
+	BBLogger &logger = getLogger();
+	ConsoleLogger *consoleLogger = logger.mConsoleLogger;
+	FileLogger *fileLogger = logger.mFileLogger;
+
 	switch (LOG_LOCATION)
 	{
 	case Logger::EnumLogLocation::CONSOLE:
-		mConsoleLogger->logDebug(className, message);
+		consoleLogger->logDebug(className, message);
 		break;
 	case Logger::EnumLogLocation::FILE:
-		mFileLogger->logDebug(className, message);
+		fileLogger->logDebug(className, message);
 		break;
 	case Logger::EnumLogLocation::CONSOLE_AND_FILE:
-		mConsoleLogger->logDebug(className, message);
-		mFileLogger->logDebug(className, message);
+		consoleLogger->logDebug(className, message);
+		fileLogger->logDebug(className, message);
 		break;
 	}
 }
 
 void BBLogger::logInfo(const std::string& className, std::string message, const Logger::EnumLogLocation& LOG_LOCATION)
 {
+	BBLogger &logger = getLogger();
+	ConsoleLogger *consoleLogger = logger.mConsoleLogger;
+	FileLogger *fileLogger = logger.mFileLogger;
+
 	switch (LOG_LOCATION)
 	{
 	case Logger::EnumLogLocation::CONSOLE:
-		mConsoleLogger->logInfo(className, message);
+		consoleLogger->logInfo(className, message);
 		break;
 	case Logger::EnumLogLocation::FILE:
-		mFileLogger->logInfo(className, message);
+		fileLogger->logInfo(className, message);
 		break;
 	case Logger::EnumLogLocation::CONSOLE_AND_FILE:
-		mConsoleLogger->logInfo(className, message);
-		mFileLogger->logInfo(className, message);
+		consoleLogger->logInfo(className, message);
+		fileLogger->logInfo(className, message);
 		break;
 	}
 }
 
 void BBLogger::logWarn(const std::string& className, std::string message, const Logger::EnumLogLocation& LOG_LOCATION)
 {
+	BBLogger &logger = getLogger();
+	ConsoleLogger *consoleLogger = logger.mConsoleLogger;
+	FileLogger *fileLogger = logger.mFileLogger;
+
 	switch (LOG_LOCATION)
 	{
 	case Logger::EnumLogLocation::CONSOLE:
-		mConsoleLogger->logWarn(className, message);
+		consoleLogger->logWarn(className, message);
 		break;
 	case Logger::EnumLogLocation::FILE:
-		mFileLogger->logWarn(className, message);
+		fileLogger->logWarn(className, message);
 		break;
 	case Logger::EnumLogLocation::CONSOLE_AND_FILE:
-		mConsoleLogger->logWarn(className, message);
-		mFileLogger->logWarn(className, message);
+		consoleLogger->logWarn(className, message);
+		fileLogger->logWarn(className, message);
 		break;
 	}
 }
 
 void BBLogger::logError(const std::string& className, std::string message, const Logger::EnumLogLocation& LOG_LOCATION)
 {
+	BBLogger &logger = getLogger();
+	ConsoleLogger *consoleLogger = logger.mConsoleLogger;
+	FileLogger *fileLogger = logger.mFileLogger;
+
 	switch (LOG_LOCATION)
 	{
 	case Logger::EnumLogLocation::CONSOLE:
-		mConsoleLogger->logError(className, message);
+		consoleLogger->logError(className, message);
 		break;
 	case Logger::EnumLogLocation::FILE:
-		mFileLogger->logError(className, message);
+		fileLogger->logError(className, message);
 		break;
 	case Logger::EnumLogLocation::CONSOLE_AND_FILE:
-		mConsoleLogger->logError(className, message);
-		mFileLogger->logError(className, message);
+		consoleLogger->logError(className, message);
+		fileLogger->logError(className, message);
 		break;
 	}
 }
 
 void BBLogger::logCritical(const std::string& className, std::string message, const Logger::EnumLogLocation& LOG_LOCATION)
 {
+	BBLogger &logger = getLogger();
+	ConsoleLogger *consoleLogger = logger.mConsoleLogger;
+	FileLogger *fileLogger = logger.mFileLogger;
+
 	switch (LOG_LOCATION)
 	{
 	case Logger::EnumLogLocation::CONSOLE:
-		mConsoleLogger->logCritical(className, message);
+		consoleLogger->logCritical(className, message);
 		break;
 	case Logger::EnumLogLocation::FILE:
-		mFileLogger->logCritical(className, message);
+		fileLogger->logCritical(className, message);
 		break;
 	case Logger::EnumLogLocation::CONSOLE_AND_FILE:
-		mConsoleLogger->logCritical(className, message);
-		mFileLogger->logCritical(className, message);
+		consoleLogger->logCritical(className, message);
+		fileLogger->logCritical(className, message);
 		break;
 	}
 }

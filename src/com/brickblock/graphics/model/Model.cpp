@@ -1,6 +1,6 @@
 #include "Model.h"
-#include "../../../util/math/physics/Transform.h"
-#include "Mesh.h"
+#include "../../util/math/physics/Transform.h"
+#include "../resource/mesh/Mesh.h"
 using namespace bb;
 
 Model::Model() :

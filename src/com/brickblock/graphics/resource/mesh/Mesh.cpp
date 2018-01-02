@@ -21,14 +21,13 @@ const std::string Mesh::FACE_DELIMITER = "f ";
 const GLuint Mesh::INDEX_DELIMITER_START = 0;
 const GLuint Mesh::INDEX_DELIMITER_END = 2;
 
-const GLuint Mesh::FACE_AMOUNT = 3;
-
-Mesh::Mesh(const FileLocation& MESH_FILE_LOCATION) :
+Mesh::Mesh(FileLocation *meshFileLocation) :
 	Resource(),
-	mMESH_FILE_LOCATION(MESH_FILE_LOCATION),
+	mMeshFileLocation(meshFileLocation),
 	mVAOWrapper(nullptr),
 	mVBOWrappers(new std::vector<VBOWrapper*>()),
-	mEBOWrapper(nullptr)
+	mEBOWrapper(nullptr),
+	mColor(glm::vec4(1.0)) // White overlay by default as to not affect textures.
 {
 	
 }
@@ -41,6 +40,7 @@ Mesh::~Mesh()
 	}
 
 	delete mVBOWrappers;
+	delete mMeshFileLocation;
 }
 
 void Mesh::load()
@@ -48,12 +48,12 @@ void Mesh::load()
 	if (mIsLoaded)
 	{
 		//Log saying model is already loaded.
-		BBLogger::getLogger().logWarn(CLASS_NAME, "This mesh is already loaded.", Logger::EnumLogLocation::CONSOLE_AND_FILE);
+		BBLogger::logWarn(CLASS_NAME, "This mesh is already loaded.");
 		return;
 	}
 
 	std::vector<std::string> modelInformation;
-	StringFileReader::getInstance().getContentsByLine(mMESH_FILE_LOCATION, modelInformation);
+	StringFileReader::getInstance().getContentsByLine(*mMeshFileLocation, modelInformation);
 
 	if (modelInformation.size() > 0)
 	{
@@ -63,7 +63,7 @@ void Mesh::load()
 		GLuint modelFaceStartLine = 0;
 
 		//log debug saying amount of file lines
-		BBLogger::getLogger().logDebug(CLASS_NAME, "Lines in file: " + modelInformation.size(), Logger::EnumLogLocation::CONSOLE_AND_FILE);
+		BBLogger::logDebug(CLASS_NAME, "Lines in file: " + std::to_string(modelInformation.size()));
 
 		GLuint lineIndex;
 		std::string currentLine;
@@ -75,15 +75,15 @@ void Mesh::load()
 
 			if (typeDelimiter.compare(VERTEX_DELIMITER) == 0)
 			{
-				addFloatsFromString(currentLine, unorderedPositions, VERTEX_DELIMITER.size(), 3, SPACE_DELIMITER);
+				addFloatsFromString(currentLine.substr(VERTEX_DELIMITER.size()), unorderedPositions, VERTEX_DELIMITER.size(), SPACE_DELIMITER);
 			}
 			else if (typeDelimiter.compare(VERTEX_TEX_COORD_DELIMITER) == 0)
 			{
-				addFloatsFromString(currentLine, unorderedTexCoords, VERTEX_TEX_COORD_DELIMITER.size() + 1, 2, SPACE_DELIMITER);
+				addFloatsFromString(currentLine.substr(VERTEX_TEX_COORD_DELIMITER.size() + 1), unorderedTexCoords, VERTEX_TEX_COORD_DELIMITER.size() + 1, SPACE_DELIMITER);
 			}
 			else if (typeDelimiter.compare(VERTEX_NORMAL_DELIMITER) == 0)
 			{
-				addFloatsFromString(currentLine, unorderedNormals, VERTEX_NORMAL_DELIMITER.size() + 1, 3, SPACE_DELIMITER);
+				addFloatsFromString(currentLine.substr(VERTEX_NORMAL_DELIMITER.size() + 1), unorderedNormals, VERTEX_NORMAL_DELIMITER.size() + 1, SPACE_DELIMITER);
 			}
 			else if (typeDelimiter.compare(FACE_DELIMITER) == 0)
 			{
@@ -97,44 +97,61 @@ void Mesh::load()
 		std::vector<GLfloat> sortedNormals = std::vector<GLfloat>(unorderedNormals.size());
 
 		std::vector<std::string> facesString;
-		std::vector<GLint> faces;
+		std::vector<GLint> posTexAndNormal;
 
+		//Read each line until the end of the file
 		for (lineIndex = modelFaceStartLine; lineIndex < modelInformation.size(); ++lineIndex)
 		{
 			currentLine = modelInformation.at(lineIndex).substr(FACE_DELIMITER.size());
-			StringUtil::split(currentLine.c_str(), SLASH_DELIMITER, facesString);
+			StringUtil::split(currentLine.c_str(), SPACE_DELIMITER, GL_FALSE, facesString);
+			BBLogger::logWarn(CLASS_NAME, "CurrentLine: " + currentLine);
 
+			//Read each face info
 			GLuint strIndex;
+			GLuint offset;
 			for (strIndex = 0; strIndex < facesString.size(); ++strIndex)
 			{
-				getIntsFromString(facesString.at(strIndex), faces, 0, FACE_AMOUNT, SLASH_DELIMITER);
+				BBLogger::logWarn(CLASS_NAME, "Face info [" + std::to_string(strIndex) + "]: " + facesString.at(strIndex));
+				
+				getIntsFromString(facesString.at(strIndex), posTexAndNormal, 0, SLASH_DELIMITER);
+				BBLogger::logTrace(CLASS_NAME, "PosTexAndNormal: " 
+					+ std::to_string(posTexAndNormal[0]) 
+					+ std::to_string(posTexAndNormal[1]));
 
-				indices.push_back(faces[0]);
+				indices.push_back(posTexAndNormal[0]);
+				offset = 1;
 
-				sortedTexCoords.push_back(unorderedTexCoords.at(faces[1] * 2));
-				sortedTexCoords.push_back(unorderedTexCoords.at(faces[1] * 2 + 1));
+				if (!unorderedTexCoords.empty())
+				{
+					sortedTexCoords.push_back(unorderedTexCoords.at((posTexAndNormal[offset] - 1) * 2));
+					sortedTexCoords.push_back(unorderedTexCoords.at((posTexAndNormal[offset] - 1) * 2 + 1));
+					++offset;
+				}
 
-				sortedNormals.push_back(unorderedNormals.at(faces[2] * 3));
-				sortedNormals.push_back(unorderedNormals.at(faces[2] * 3 + 1));
-				sortedNormals.push_back(unorderedNormals.at(faces[2] * 3 + 2));
+				if (!unorderedNormals.empty())
+				{
+					sortedNormals.push_back(unorderedNormals.at((posTexAndNormal[offset] - 1) * 3));
+					sortedNormals.push_back(unorderedNormals.at((posTexAndNormal[offset] - 1) * 3 + 1));
+					sortedNormals.push_back(unorderedNormals.at((posTexAndNormal[offset] - 1) * 3 + 2));
+				}
 
-				faces.clear();
+				posTexAndNormal.clear();
 			}
 
 			facesString.clear();
 		}
 
-		if (unorderedPositions.size() > 0)
+		if (!unorderedPositions.empty())
 		{
 			addBufferData(new VBOWrapper(VBOWrapper::BufferType::POSITION, unorderedPositions, 3));
 		}
 
-		if (sortedTexCoords.size() > 0)
+		if (!sortedTexCoords.empty())
 		{
 			addBufferData(new VBOWrapper(VBOWrapper::BufferType::TEX_COORDS, sortedTexCoords, 2));
 		}
 
-		if (sortedNormals.size() > 0)
+		if (!sortedNormals.empty())
 		{
 			addBufferData(new VBOWrapper(VBOWrapper::BufferType::NORMALS, sortedNormals, 3));
 		}
@@ -152,7 +169,7 @@ void Mesh::load()
 	else
 	{
 		//Log saying file was empty.
-		BBLogger::getLogger().logWarn(CLASS_NAME, "The file was empty.", Logger::EnumLogLocation::CONSOLE_AND_FILE);
+		BBLogger::logWarn(CLASS_NAME, "The file was empty.");
 	}
 }
 
@@ -169,6 +186,8 @@ void Mesh::unload()
 	{
 		delete mVAOWrapper;
 	}
+
+	mIsLoaded = GL_FALSE;
 }
 
 VAOWrapper* const Mesh::getVAOWrapper() const
@@ -189,7 +208,7 @@ VBOWrapper* const Mesh::getVBOWrapper(const VBOWrapper::BufferType& BUFFER_TYPE)
 	}
 
 	//Log this model does not support that buffer type.
-	BBLogger::getLogger().logWarn(CLASS_NAME, "This model does not support that buffer type.", Logger::EnumLogLocation::CONSOLE_AND_FILE);
+	BBLogger::logWarn(CLASS_NAME, "This model does not support that buffer type.");
 
 	return nullptr;
 }
@@ -234,17 +253,18 @@ void Mesh::addBufferData(VBOWrapper* newBufferData)
 	mVBOWrappers->push_back(newBufferData);
 }
 
-void Mesh::addFloatsFromString(std::string line, std::vector<GLfloat>& data, GLuint beginIndex, GLuint amountOfFloats, const char DELIMITER)
+void Mesh::addFloatsFromString(std::string line, std::vector<GLfloat>& data, GLuint beginIndex, const char DELIMITER)
 {
 	//GLuint endIndex;
 	GLfloat extractedFloat;
 
 	std::vector<std::string> floats;
-	StringUtil::split(line.c_str(), DELIMITER, floats);
+	StringUtil::split(line.c_str(), DELIMITER, GL_FALSE, floats);
 
 	GLuint i;
 	for (i = 0; i < floats.size(); ++i)
 	{
+		BBLogger::logWarn(CLASS_NAME, "Floats on line: " + line + " | Floats at i: " + floats.at(i));
 		extractedFloat = std::stof(floats.at(i));
 		data.push_back(extractedFloat);
 	}
@@ -258,15 +278,20 @@ void Mesh::addFloatsFromString(std::string line, std::vector<GLfloat>& data, GLu
 	}*/
 }
 
-void Mesh::getIntsFromString(std::string line, std::vector<GLint>& data, GLuint beginIndex, GLuint amountOfInts, const char DELIMITER)
+void Mesh::getIntsFromString(std::string line, std::vector<GLint>& data, GLuint beginIndex, const char DELIMITER)
 {
 	//GLuint endIndex;
 	GLint extractedFloat;
 
 	std::vector<std::string> ints;
-	StringUtil::split(line.c_str(), DELIMITER, ints);
+	StringUtil::split(line.c_str(), DELIMITER, GL_FALSE, ints);
 
 	GLuint i;
+	for (i = 0; i < ints.size(); ++i)
+	{
+		BBLogger::logTrace(CLASS_NAME, ints.at(i));
+	}
+
 	for (i = 0; i < ints.size(); ++i)
 	{
 		extractedFloat = std::stoi(ints.at(i));

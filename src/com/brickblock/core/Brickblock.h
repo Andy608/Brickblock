@@ -7,20 +7,33 @@
 namespace bb
 {
 	class Window;
+	class ResourceManager;
 
 	class Brickblock
 	{
 	public:
-		static Brickblock* init(GLint argc, GLint **argv);
+		static Brickblock& getInstance()
+		{
+			static Brickblock instance;
+			return instance;
+		}
 
+		Brickblock(Brickblock const &copy) = delete;
+		void operator=(Brickblock const &copy) = delete;
 		~Brickblock();
 
-		void start();
+		void start(GLint argc, GLint **argv);
 
 	private:
 		static std::string CLASS_NAME;
-		static Brickblock* instance;
+		GLboolean mIsInitialized;
+		GLboolean mIsRunning;
+
+		ResourceManager *mResourceManager;
+
 		Brickblock();
+
+		void init(GLint argc, GLint **argv);
 	};
 }
 

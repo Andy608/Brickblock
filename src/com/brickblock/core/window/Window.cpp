@@ -1,7 +1,7 @@
 #include <iostream>
 #include <string>
 #include "Window.h"
-#include "../core/BrickblockInfo.h"
+#include "../BrickblockInfo.h"
 using namespace bb;
 
 GLint Window::width = 0;

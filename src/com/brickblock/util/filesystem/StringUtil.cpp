@@ -11,17 +11,44 @@ std::wstring StringUtil::stow(const std::string& str)
 	return std::wstring(str.begin(), str.end());
 }
 
-void StringUtil::split(const char* str, char delimiter, std::vector<std::string>& result)
+void StringUtil::split(const char* str, char delimiter, bool addDoubleDimiliterSpace, std::vector<std::string>& result)
 {
-	do
+	if (addDoubleDimiliterSpace)
 	{
-		const char *beginIndex = str;
-
-		while (*str != delimiter && *str)
+		do
 		{
-			++str;
-		}
+			const char *beginIndex = str;
 
-		result.push_back(std::string(beginIndex, str));
-	} while (0 != *str++);
+			while (*str != delimiter && *str)
+			{
+				++str;
+			}
+
+			std::string s = std::string(beginIndex, str);
+			if (s.empty())
+			{
+				s = " ";
+			}
+
+			result.push_back(s);
+		} while (0 != *str++);
+	}
+	else
+	{
+		do
+		{
+			const char *beginIndex = str;
+
+			while (*str != delimiter && *str)
+			{
+				++str;
+			}
+
+			std::string s = std::string(beginIndex, str);
+			if (!s.empty())
+			{
+				result.push_back(std::string(beginIndex, str));
+			}
+		} while (0 != *str++);
+	}
 }

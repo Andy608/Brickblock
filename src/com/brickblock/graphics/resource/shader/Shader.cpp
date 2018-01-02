@@ -29,7 +29,7 @@ void Shader::load()
 	extractFromFile();
 	compile();
 	mIsLoaded = GL_TRUE;
-	BBLogger::getLogger().logDebug(CLASS_NAME, mShaderCode, Logger::EnumLogLocation::CONSOLE_AND_FILE);
+	BBLogger::logDebug(CLASS_NAME, mShaderCode, Logger::EnumLogLocation::CONSOLE_AND_FILE);
 }
 
 void Shader::unload()
@@ -60,11 +60,11 @@ void Shader::compile()
 	if (!compiled)
 	{
 		glGetShaderInfoLog(mShaderID, ERROR_LOG_SIZE, NULL, errorLog);
-		BBLogger::getLogger().logError(CLASS_NAME, "Could not compile shader: " + std::string(errorLog), Logger::EnumLogLocation::CONSOLE_AND_FILE);
+		BBLogger::logError(CLASS_NAME, "Could not compile shader: " + std::string(errorLog), Logger::EnumLogLocation::CONSOLE_AND_FILE);
 	}
 	else
 	{
-		BBLogger::getLogger().logDebug(CLASS_NAME, "Successfully compiled shader!", Logger::EnumLogLocation::CONSOLE_AND_FILE);
+		BBLogger::logDebug(CLASS_NAME, "Successfully compiled shader!", Logger::EnumLogLocation::CONSOLE_AND_FILE);
 	}
 }
 

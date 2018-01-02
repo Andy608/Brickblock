@@ -4,6 +4,7 @@
 #include "../Resource.h"
 #include "util/VBOWrapper.h"
 #include <string>
+#include <glm/vec4.hpp>
 
 namespace bb
 {
@@ -15,7 +16,7 @@ namespace bb
 	{
 	public:
 		//Load mesh from file. (Make another constructor in the future to load not from file --subclass loading).
-		Mesh(const FileLocation& MESH_FILE_LOCATION);
+		Mesh(FileLocation *meshFileLocation);
 		virtual ~Mesh();
 
 		virtual void load();
@@ -40,21 +41,21 @@ namespace bb
 		static const GLuint INDEX_DELIMITER_START;
 		static const GLuint INDEX_DELIMITER_END;
 
-		static const GLuint FACE_AMOUNT;
-
-		const FileLocation& mMESH_FILE_LOCATION;
+		FileLocation *mMeshFileLocation;
 
 		VAOWrapper *mVAOWrapper;
 		std::vector<VBOWrapper*>* mVBOWrappers;
 		EBOWrapper *mEBOWrapper;
+
+		glm::vec4 mColor; //values between 0-1
 
 		virtual void prepareMesh();
 		
 		void setElementBuffer(EBOWrapper *newWrapper);
 		void addBufferData(VBOWrapper* newBufferData);
 
-		void addFloatsFromString(std::string line, std::vector<GLfloat>& data, GLuint beginIndex, GLuint amountOfFloats, const char DELIMITER);
-		void getIntsFromString(std::string line, std::vector<GLint>& data, GLuint beginIndex, GLuint amountOfInts, const char DELIMITER);
+		void addFloatsFromString(std::string line, std::vector<GLfloat>& data, GLuint beginIndex, const char DELIMITER);
+		void getIntsFromString(std::string line, std::vector<GLint>& data, GLuint beginIndex, const char DELIMITER);
 	
 		void clearBufferData();
 	};

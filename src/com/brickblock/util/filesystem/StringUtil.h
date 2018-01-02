@@ -11,7 +11,7 @@ namespace bb
 		static std::string wtos(const std::wstring& wstr);
 		static std::wstring stow(const std::string& str);
 
-		static void StringUtil::split(const char* str, char delimiter, std::vector<std::string>& result);
+		static void StringUtil::split(const char* str, char delimiter, bool addDoubleDimiliterSpace, std::vector<std::string>& result);
 	};
 }
 

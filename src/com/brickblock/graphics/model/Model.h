@@ -1,7 +1,7 @@
 #ifndef BB_MODEL_H_
 #define BB_MODEL_H_
 
-#include "../Resource.h"
+#include "../resource/Resource.h"
 #include <vector>
 
 namespace bb

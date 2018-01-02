@@ -4,16 +4,22 @@
 #include "../filesystem/Directory/DirectoryList.h"
 #include "../filesystem/directory/DirectoryLocation.h"
 #include "../filesystem/file/FileLocation.h"
+#include "Logger.h"
 #include "ConsoleLogger.h"
 #include "FileLogger.h"
 
 namespace bb
 {
-	class ConsoleLogger;
-	class FileLogger;
-
 	class BBLogger
 	{
+	public:
+		static void	logTrace(const std::string& className, std::string message, const Logger::EnumLogLocation& LOG_LOCATION = Logger::EnumLogLocation::CONSOLE_AND_FILE);
+		static void	logDebug(const std::string& className, std::string message, const Logger::EnumLogLocation& LOG_LOCATION = Logger::EnumLogLocation::CONSOLE_AND_FILE);
+		static void	 logInfo(const std::string& className, std::string message, const Logger::EnumLogLocation& LOG_LOCATION = Logger::EnumLogLocation::CONSOLE_AND_FILE);
+		static void	 logWarn(const std::string& className, std::string message, const Logger::EnumLogLocation& LOG_LOCATION = Logger::EnumLogLocation::CONSOLE_AND_FILE);
+		static void	logError(const std::string& className, std::string message, const Logger::EnumLogLocation& LOG_LOCATION = Logger::EnumLogLocation::CONSOLE_AND_FILE);
+		static void logCritical(const std::string& className, std::string message, const Logger::EnumLogLocation& LOG_LOCATION = Logger::EnumLogLocation::CONSOLE_AND_FILE);
+
 	private:
 		const std::string mFORMAT;
 		ConsoleLogger *mConsoleLogger;
@@ -22,7 +28,6 @@ namespace bb
 		BBLogger(ConsoleLogger *consoleLogger, FileLogger *fileLogger);
 		~BBLogger();
 
-	public:
 		static BBLogger& getLogger()
 		{
 			static ConsoleLogger *consoleLogger = new ConsoleLogger("BBConsoleLogger", Logger::DEFAULT_FORMAT, spdlog::level::trace);
@@ -31,13 +36,6 @@ namespace bb
 			static BBLogger instance(consoleLogger, fileLogger);
 			return instance;
 		}
-
-		void	logTrace(const std::string& className, std::string message, const Logger::EnumLogLocation& LOG_LOCATION);
-		void	logDebug(const std::string& className, std::string message, const Logger::EnumLogLocation& LOG_LOCATION);
-		void	 logInfo(const std::string& className, std::string message, const Logger::EnumLogLocation& LOG_LOCATION);
-		void	 logWarn(const std::string& className, std::string message, const Logger::EnumLogLocation& LOG_LOCATION);
-		void	logError(const std::string& className, std::string message, const Logger::EnumLogLocation& LOG_LOCATION);
-		void logCritical(const std::string& className, std::string message, const Logger::EnumLogLocation& LOG_LOCATION);
 	};
 }
 
