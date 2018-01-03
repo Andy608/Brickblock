@@ -15,7 +15,8 @@ namespace bb
 		enum class ResourceType : GLuint
 		{
 			UNKNOWN = 0,
-			MESH = 1
+			MESH = 1,
+			SHADER = 2
 		};
 
 		ResourceManager(ResourceManager const &copy) = delete;

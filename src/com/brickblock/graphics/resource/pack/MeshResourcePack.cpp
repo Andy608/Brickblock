@@ -1,8 +1,9 @@
 #include "MeshResourcePack.h"
-#include "../mesh/Mesh.h"
 #include "../../../util/filesystem/file/FileLocation.h"
 #include "../../../util/filesystem/directory/DirectoryList.h"
 using namespace bb;
+
+Mesh* MeshResourcePack::testMesh = nullptr;
 
 MeshResourcePack::MeshResourcePack() :
 	ResourcePack(ResourceManager::ResourceType::MESH)
@@ -13,9 +14,9 @@ MeshResourcePack::MeshResourcePack() :
 void MeshResourcePack::load()
 {
 	//Load all mess objects here.
-	Mesh *testModel = new Mesh(new FileLocation(*DirectoryList::getInstance().mMeshDirectory, "test_cube", FileLocation::OBJ_EXT));
+	testMesh = new Mesh(new FileLocation(*DirectoryList::getInstance().mMeshDirectory, "test_cube", FileLocation::OBJ_EXT));
 
-	registerResource(testModel);
+	registerResource(testMesh);
 
 	ResourcePack::load();
 }

@@ -8,6 +8,7 @@ namespace bb
 {
 	class Window;
 	class ResourceManager;
+	class World;
 
 	class Brickblock
 	{
@@ -30,10 +31,24 @@ namespace bb
 		GLboolean mIsRunning;
 
 		ResourceManager *mResourceManager;
+		const Window &mWINDOW;
+
+		World *mCurrentWorld;
+
+		static const GLint TICKS_PER_SECOND;
+		static const GLfloat TIME_SLICE;
+		static const GLfloat LAG_CAP;
+
+		GLint mTickCount;
+		GLint mFramesPerSecond;
 
 		Brickblock();
 
 		void init(GLint argc, GLint **argv);
+
+		void update(const GLdouble& DELTA_TIME);
+		void render(const GLdouble& DELTA_TIME);
+
 	};
 }
 

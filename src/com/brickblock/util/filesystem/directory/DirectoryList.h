@@ -25,6 +25,7 @@ namespace bb
 
 		DirectoryLocation *mAssetDirectory;//Should be in program folder
 		DirectoryLocation *mMeshDirectory;//In asset directory
+		DirectoryLocation *mShaderDirectory;//In asset directory
 
 		void init();
 	};

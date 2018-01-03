@@ -26,7 +26,7 @@ void StringFileReader::getContents(const FileLocation& FILE, std::string& fileCo
 		mStringStream->str(std::string());
 		*mStringStream << mReadStream->rdbuf();
 		fileContents = mStringStream->str();
-		BBLogger::logDebug(CLASS_NAME, "File Contents : " + fileContents, Logger::EnumLogLocation::CONSOLE_AND_FILE);
+		//BBLogger::logDebug(CLASS_NAME, "File Contents : " + fileContents, Logger::EnumLogLocation::CONSOLE_AND_FILE);
 	}
 	else
 	{

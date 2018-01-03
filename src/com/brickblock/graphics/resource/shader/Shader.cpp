@@ -29,7 +29,7 @@ void Shader::load()
 	extractFromFile();
 	compile();
 	mIsLoaded = GL_TRUE;
-	BBLogger::logDebug(CLASS_NAME, mShaderCode, Logger::EnumLogLocation::CONSOLE_AND_FILE);
+	//BBLogger::logDebug(CLASS_NAME, mShaderCode, Logger::EnumLogLocation::CONSOLE_AND_FILE);
 }
 
 void Shader::unload()

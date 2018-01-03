@@ -8,7 +8,7 @@
 namespace bb
 {
 	class FileLocation;
-	class Shader : Resource
+	class Shader : public Resource
 	{
 	public:
 

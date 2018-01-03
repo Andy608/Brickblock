@@ -46,7 +46,7 @@ void ResourcePack::load()
 	GLuint i;
 	for (i = 0; i < mResources->size(); ++i)
 	{
-		BBLogger::logTrace("ResourcePack.cpp", "SIZE: " + mResources->size());
+		BBLogger::logTrace("ResourcePack.cpp", "SIZE: " + std::to_string(mResources->size()));
 		mResources->at(i)->load();
 	}
 }

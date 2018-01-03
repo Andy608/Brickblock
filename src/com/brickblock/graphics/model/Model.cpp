@@ -89,11 +89,11 @@ void Model::renderComponents(ComponentNode *node, const GLdouble& DELTA_TIME)
 		}
 	}
 
-	Mesh *currentMesh = mRoot->mMesh;
+	const Mesh *CURRENT_MESH = mRoot->mMESH;
 
-	if (currentMesh != nullptr)
+	if (CURRENT_MESH != nullptr)
 	{
-		currentMesh->render(DELTA_TIME);
+		CURRENT_MESH->render(DELTA_TIME);
 	}
 }
 
@@ -101,9 +101,9 @@ void Model::renderComponents(ComponentNode *node, const GLdouble& DELTA_TIME)
 ////////// ComponentNode //////////
 ///////////////////////////////////
 
-Model::ComponentNode::ComponentNode(GLuint id, Mesh *mesh) :
+Model::ComponentNode::ComponentNode(GLuint id, const Mesh *MESH) :
 	mComponentID(id),
-	mMesh(mesh), //Reference to static mesh somewhere else or nullptr.
+	mMESH(MESH), //Reference to static mesh somewhere else or nullptr.
 	mChildNodes(new std::vector<ComponentNode*>()),
 	mMeshTransform(new Transform())
 {

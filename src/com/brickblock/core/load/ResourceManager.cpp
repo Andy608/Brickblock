@@ -1,6 +1,7 @@
 #include "ResourceManager.h"
 #include "../../graphics/resource/pack/ResourcePack.h"
 #include "../../graphics/resource/pack/MeshResourcePack.h"
+#include "../../graphics/resource/pack/ShaderResourcePack.h"
 #include "../../util/logger/BBLogger.h"
 using namespace bb;
 
@@ -32,6 +33,7 @@ ResourceManager::~ResourceManager()
 void ResourceManager::registerResourcePacks()
 {
 	registerResourcePack(new MeshResourcePack());
+	registerResourcePack(new ShaderResourcePack());
 }
 
 void ResourceManager::registerResourcePack(ResourcePack *resourcePack)

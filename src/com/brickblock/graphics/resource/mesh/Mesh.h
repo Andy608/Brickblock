@@ -11,7 +11,6 @@ namespace bb
 	class FileLocation;
 	struct VAOWrapper;
 	struct EBOWrapper;
-
 	class Mesh : public Resource
 	{
 	public:
@@ -26,7 +25,7 @@ namespace bb
 		VBOWrapper* const getVBOWrapper(const VBOWrapper::BufferType& BUFFER_TYPE) const;
 		EBOWrapper* const getEBOWrapper() const;
 
-		virtual void render(const GLdouble& DELTA_TIME);
+		virtual void render(const GLdouble& DELTA_TIME) const;
 
 	private:
 		static const std::string CLASS_NAME;

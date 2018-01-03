@@ -11,6 +11,10 @@ DirectoryList::~DirectoryList()
 {
 	delete mRootDirectory;
 	delete mLoggerDirectory;
+
+	delete mAssetDirectory;
+	delete mMeshDirectory;
+	delete mShaderDirectory;
 }
 
 void DirectoryList::init()
@@ -20,9 +24,11 @@ void DirectoryList::init()
 	
 	mAssetDirectory = new DirectoryLocation(mRootDirectory->getPath(), "assets", DirectoryLocation::RELATIVE_PATH);
 	mMeshDirectory = new DirectoryLocation(mAssetDirectory->getPath(), "meshes", DirectoryLocation::RELATIVE_PATH);
+	mShaderDirectory = new DirectoryLocation(mAssetDirectory->getPath(), "shaders", DirectoryLocation::RELATIVE_PATH);
 
 	mRootDirectory->createDirectory();
 	mLoggerDirectory->createDirectory();
 	mAssetDirectory->createDirectory();
 	mMeshDirectory->createDirectory();
+	mShaderDirectory->createDirectory();
 }

@@ -1,20 +1,15 @@
 #ifndef BB_RENDERER_H_
 #define BB_RENDERER_H_
 
-#include "../resource/shader/ShaderProgram.h"
+#include <glad/glad.h>
 
 namespace bb
 {
 	class Renderer
 	{
 	public:
-		Renderer(ShaderProgram& shaderProgram);
+		Renderer();
 		virtual ~Renderer();
-
-		virtual void render() = 0;
-
-	protected:
-		ShaderProgram &mShaderProgram;
 	};
 }
 

@@ -1,10 +1,15 @@
 #include "Transform.h"
 using namespace bb;
 
-Transform::Transform() :
-	mPosition(glm::vec3()),
-	mRotation(glm::vec3()),
-	mScale(glm::vec3())
+//right handed system
+glm::vec3 Transform::WORLD_RIGHT	= glm::vec3(1.0f, 0.0f, 0.0f);
+glm::vec3 Transform::WORLD_UP		= glm::vec3(0.0f, 1.0f, 0.0f);
+glm::vec3 Transform::WORLD_FORWARD	= glm::vec3(0.0f, 0.0f, 1.0f);
+
+Transform::Transform(glm::vec3 position, glm::vec3 rotation, glm::vec3 scale) :
+	mPosition(position),
+	mRotation(rotation),
+	mScale(scale)
 {
 
 }

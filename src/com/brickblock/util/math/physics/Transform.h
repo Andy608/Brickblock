@@ -9,7 +9,12 @@ namespace bb
 	class Transform
 	{
 	public:
-		Transform();
+		//right handed system
+		static glm::vec3 WORLD_UP;
+		static glm::vec3 WORLD_RIGHT;
+		static glm::vec3 WORLD_FORWARD;
+
+		Transform(glm::vec3 position = glm::vec3(), glm::vec3 rotation = glm::vec3(), glm::vec3 scale = glm::vec3(1.0f));
 		~Transform();
 
 		void setPosition(GLfloat x, GLfloat y, GLfloat z);

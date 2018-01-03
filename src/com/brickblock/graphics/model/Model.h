@@ -22,7 +22,7 @@ namespace bb
 		{
 		public:
 			//The mesh can be null
-			Mesh *mMesh;
+			const Mesh *mMESH;
 
 			//The child nodes that move relative to their parents
 			std::vector<ComponentNode*> *mChildNodes;
@@ -30,7 +30,7 @@ namespace bb
 			//Relative to the model
 			Transform *mMeshTransform;
 
-			ComponentNode(GLuint id, Mesh *mesh);
+			ComponentNode(GLuint id, const Mesh *MESH);
 			~ComponentNode();
 
 			void addChild(ComponentNode *node);

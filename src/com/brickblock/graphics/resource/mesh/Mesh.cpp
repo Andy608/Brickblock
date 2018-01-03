@@ -5,6 +5,7 @@
 #include "../../../util/filesystem/file/reader/StringFileReader.h"
 #include "../../../util/filesystem/StringUtil.h"
 #include "../../../util/logger/BBLogger.h"
+#include "../shader/ShaderProgram.h"
 
 using namespace bb;
 
@@ -63,7 +64,7 @@ void Mesh::load()
 		GLuint modelFaceStartLine = 0;
 
 		//log debug saying amount of file lines
-		BBLogger::logDebug(CLASS_NAME, "Lines in file: " + std::to_string(modelInformation.size()));
+		//BBLogger::logDebug(CLASS_NAME, "Lines in file: " + std::to_string(modelInformation.size()));
 
 		GLuint lineIndex;
 		std::string currentLine;
@@ -75,15 +76,18 @@ void Mesh::load()
 
 			if (typeDelimiter.compare(VERTEX_DELIMITER) == 0)
 			{
-				addFloatsFromString(currentLine.substr(VERTEX_DELIMITER.size()), unorderedPositions, VERTEX_DELIMITER.size(), SPACE_DELIMITER);
+				addFloatsFromString(currentLine.substr(VERTEX_DELIMITER.size()), 
+					unorderedPositions, VERTEX_DELIMITER.size(), SPACE_DELIMITER);
 			}
 			else if (typeDelimiter.compare(VERTEX_TEX_COORD_DELIMITER) == 0)
 			{
-				addFloatsFromString(currentLine.substr(VERTEX_TEX_COORD_DELIMITER.size() + 1), unorderedTexCoords, VERTEX_TEX_COORD_DELIMITER.size() + 1, SPACE_DELIMITER);
+				addFloatsFromString(currentLine.substr(VERTEX_TEX_COORD_DELIMITER.size() + 1), 
+					unorderedTexCoords, VERTEX_TEX_COORD_DELIMITER.size() + 1, SPACE_DELIMITER);
 			}
 			else if (typeDelimiter.compare(VERTEX_NORMAL_DELIMITER) == 0)
 			{
-				addFloatsFromString(currentLine.substr(VERTEX_NORMAL_DELIMITER.size() + 1), unorderedNormals, VERTEX_NORMAL_DELIMITER.size() + 1, SPACE_DELIMITER);
+				addFloatsFromString(currentLine.substr(VERTEX_NORMAL_DELIMITER.size() + 1), 
+					unorderedNormals, VERTEX_NORMAL_DELIMITER.size() + 1, SPACE_DELIMITER);
 			}
 			else if (typeDelimiter.compare(FACE_DELIMITER) == 0)
 			{
@@ -104,35 +108,35 @@ void Mesh::load()
 		{
 			currentLine = modelInformation.at(lineIndex).substr(FACE_DELIMITER.size());
 			StringUtil::split(currentLine.c_str(), SPACE_DELIMITER, GL_FALSE, facesString);
-			BBLogger::logWarn(CLASS_NAME, "CurrentLine: " + currentLine);
+			//BBLogger::logWarn(CLASS_NAME, "CurrentLine: " + currentLine);
 
 			//Read each face info
 			GLuint strIndex;
 			GLuint offset;
 			for (strIndex = 0; strIndex < facesString.size(); ++strIndex)
 			{
-				BBLogger::logWarn(CLASS_NAME, "Face info [" + std::to_string(strIndex) + "]: " + facesString.at(strIndex));
+				//BBLogger::logWarn(CLASS_NAME, "Face info [" + std::to_string(strIndex) + "]: " + facesString.at(strIndex));
 				
 				getIntsFromString(facesString.at(strIndex), posTexAndNormal, 0, SLASH_DELIMITER);
-				BBLogger::logTrace(CLASS_NAME, "PosTexAndNormal: " 
-					+ std::to_string(posTexAndNormal[0]) 
+				/*BBLogger::logTrace(CLASS_NAME, "PosTexAndNormal: " 
+					+ std::to_string(posTexAndNormal[0]) + " "
 					+ std::to_string(posTexAndNormal[1]));
-
+*/
 				indices.push_back(posTexAndNormal[0]);
 				offset = 1;
 
 				if (!unorderedTexCoords.empty())
 				{
-					sortedTexCoords.push_back(unorderedTexCoords.at((posTexAndNormal[offset] - 1) * 2));
-					sortedTexCoords.push_back(unorderedTexCoords.at((posTexAndNormal[offset] - 1) * 2 + 1));
+					sortedTexCoords.push_back(unorderedTexCoords.at(posTexAndNormal[offset] * 2));
+					sortedTexCoords.push_back(unorderedTexCoords.at(posTexAndNormal[offset] * 2 + 1));
 					++offset;
 				}
 
 				if (!unorderedNormals.empty())
 				{
-					sortedNormals.push_back(unorderedNormals.at((posTexAndNormal[offset] - 1) * 3));
-					sortedNormals.push_back(unorderedNormals.at((posTexAndNormal[offset] - 1) * 3 + 1));
-					sortedNormals.push_back(unorderedNormals.at((posTexAndNormal[offset] - 1) * 3 + 2));
+					sortedNormals.push_back(unorderedNormals.at(posTexAndNormal[offset] * 3));
+					sortedNormals.push_back(unorderedNormals.at(posTexAndNormal[offset] * 3 + 1));
+					sortedNormals.push_back(unorderedNormals.at(posTexAndNormal[offset] * 3 + 2));
 				}
 
 				posTexAndNormal.clear();
@@ -165,6 +169,11 @@ void Mesh::load()
 
 		prepareMesh();
 		mIsLoaded = GL_TRUE;
+
+		//for (GLuint i = 0; i < unorderedPositions.size(); ++i)
+		//{
+			//BBLogger::logDebug(CLASS_NAME, "POSITION INDEX[" + std::to_string(i) + "] = " + std::to_string(unorderedPositions.at(i)));
+		//}
 	}
 	else
 	{
@@ -218,13 +227,15 @@ EBOWrapper* const Mesh::getEBOWrapper() const
 	return mEBOWrapper;
 }
 
-void Mesh::render(const GLdouble& DELTA_TIME)
+void Mesh::render(const GLdouble& DELTA_TIME) const
 {
 	//Change this in the future to support multiple rendering types.
 
+	//BBLogger::logDebug(CLASS_NAME, std::to_string(mEBOWrapper->getIndiceCount() * 3));
+
 	mVAOWrapper->bind();
-	glDrawArrays(GL_TRIANGLES, 0, mEBOWrapper->getIndiceCount() * 3);
-	//glDrawElements(GL_TRIANGLES, mEBOWrapper->getIndiceCount(), GL_UNSIGNED_INT, 0);
+	//glDrawArrays(GL_TRIANGLES, 0, mEBOWrapper->getIndiceCount() * 3);
+	glDrawElements(GL_TRIANGLES, mEBOWrapper->getIndiceCount(), GL_UNSIGNED_INT, 0);
 	mVAOWrapper->unbind();
 }
 
@@ -264,7 +275,7 @@ void Mesh::addFloatsFromString(std::string line, std::vector<GLfloat>& data, GLu
 	GLuint i;
 	for (i = 0; i < floats.size(); ++i)
 	{
-		BBLogger::logWarn(CLASS_NAME, "Floats on line: " + line + " | Floats at i: " + floats.at(i));
+		//BBLogger::logWarn(CLASS_NAME, "Floats on line: " + line + " | Floats at i: " + floats.at(i));
 		extractedFloat = std::stof(floats.at(i));
 		data.push_back(extractedFloat);
 	}
@@ -281,21 +292,22 @@ void Mesh::addFloatsFromString(std::string line, std::vector<GLfloat>& data, GLu
 void Mesh::getIntsFromString(std::string line, std::vector<GLint>& data, GLuint beginIndex, const char DELIMITER)
 {
 	//GLuint endIndex;
-	GLint extractedFloat;
+	GLint extractedInt;
 
 	std::vector<std::string> ints;
 	StringUtil::split(line.c_str(), DELIMITER, GL_FALSE, ints);
 
-	GLuint i;
+	/*GLuint i;
 	for (i = 0; i < ints.size(); ++i)
 	{
 		BBLogger::logTrace(CLASS_NAME, ints.at(i));
-	}
+	}*/
 
+	GLuint i;
 	for (i = 0; i < ints.size(); ++i)
 	{
-		extractedFloat = std::stoi(ints.at(i));
-		data.push_back(extractedFloat);
+		extractedInt = std::stoi(ints.at(i)) - 1;
+		data.push_back(extractedInt);
 	}
 }
 

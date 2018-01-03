@@ -2,6 +2,8 @@
 #include <string>
 #include "Window.h"
 #include "../BrickblockInfo.h"
+#include "../../graphics/render/RenderManager.h"
+#include "../../graphics/Camera.h"
 using namespace bb;
 
 GLint Window::width = 0;
@@ -55,6 +57,7 @@ Window::Window() :
 
 		initWindowCallbacks();
 		glViewport(0, 0, width, height);
+		RenderManager::getInstance().getCamera().updateProjectionMatrix(width, height);
 		glfwShowWindow(mWindowHandle);
 	}
 
@@ -106,6 +109,7 @@ void Window::updateViewportSize(GLint viewportWidth, GLint viewportHeight)
 	width = viewportWidth;
 	height = viewportHeight;
 	glViewport(0, 0, width, height);
+	RenderManager::getInstance().getCamera().updateProjectionMatrix(width, height);
 }
 
 void Window::cursorPositionCallback(GLFWwindow* windowHandle, GLdouble xPosition, GLdouble yPosition)

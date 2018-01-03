@@ -13,7 +13,7 @@ ConsoleLogger::ConsoleLogger(std::string consoleLoggerName, std::string consoleL
 
 ConsoleLogger::~ConsoleLogger()
 {
-	logInfo(CLASS_NAME, "Deleting console logger.");
+	//logInfo(CLASS_NAME, "Deleting console logger.");
 }
 
 void ConsoleLogger::logTrace(const std::string& className, std::string message)

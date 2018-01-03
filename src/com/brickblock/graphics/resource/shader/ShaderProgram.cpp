@@ -15,7 +15,7 @@ ShaderProgram::ShaderProgram() :
 
 ShaderProgram::~ShaderProgram()
 {
-	BBLogger::logInfo(CLASS_NAME, "Deleting Shader Program...", Logger::EnumLogLocation::CONSOLE_AND_FILE);
+	//BBLogger::logInfo(CLASS_NAME, "Deleting Shader Program...", Logger::EnumLogLocation::CONSOLE_AND_FILE);
 
 	if (mIsLoaded)
 	{
@@ -40,7 +40,7 @@ void ShaderProgram::use() const
 	glUseProgram(mProgramID);
 }
 
-void ShaderProgram::addShader(Shader* shader)
+void ShaderProgram::addShader(Shader* shader) 
 {
 	mActiveShaders.push_back(shader);
 }
@@ -98,6 +98,6 @@ void ShaderProgram::compile()
 	}
 	else
 	{
-		BBLogger::logInfo(CLASS_NAME, "Successfully compiled shader program: " + mProgramID, Logger::EnumLogLocation::CONSOLE_AND_FILE);
+		BBLogger::logInfo(CLASS_NAME, "Successfully compiled shader program: " + std::to_string(mProgramID), Logger::EnumLogLocation::CONSOLE_AND_FILE);
 	}
 }
