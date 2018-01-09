@@ -1,12 +1,14 @@
 #version 330 core
 layout (location = 0) in vec3 vertexPos;
+layout (location = 1) in vec2 texCoords;
+layout (location = 2) in vec3 normals;
 
 uniform mat4 viewMatrix;
 uniform mat4 projectionMatrix;
 uniform mat4 transformMatrix;
 uniform float time;
-  
-out vec3 outColor;
+
+out vec2 out_textureCoords;
 
 float speed = 0.5;
 
@@ -24,6 +26,6 @@ void main()
 
 	//position.x += sin(time);
 
-    gl_Position = transformation * rotationMat * position;
-    outColor = vec3(gl_Position.z, gl_Position.y, gl_Position.x);
+    gl_Position = transformation * /*rotationMat **/ position;
+    out_textureCoords = texCoords;
 }   

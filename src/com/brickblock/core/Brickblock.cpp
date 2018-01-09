@@ -5,10 +5,10 @@
 #include "../util/logger/BBLogger.h"
 #include "../util/filesystem/directory/DirectoryLocation.h"
 #include "../util/filesystem/file/FileLocation.h"
-#include "load/ResourceManager.h"
+#include "../util/load/ResourceManager.h"
 
 #include "../util/filesystem/directory/DirectoryList.h"
-#include "../graphics/resource/shader/Shader.h"
+#include "../util/load/resource/shader/Shader.h"
 
 #include "../world/World.h"
 
@@ -41,9 +41,11 @@ void Brickblock::init(GLint argc, GLint **argv)
 		//Log creating resource manager
 		BBLogger::logTrace(CLASS_NAME, "Creating Resource Manager.");
 		mResourceManager = new ResourceManager();
+		BBLogger::logTrace(CLASS_NAME, "...Creating Resource Packs");
+		mResourceManager->createResourcePacks();
 		BBLogger::logTrace(CLASS_NAME, "...Registering Resource Packs");
 		mResourceManager->registerResourcePacks();
-		BBLogger::logTrace(CLASS_NAME, "...Loading Resource Packs");
+		BBLogger::logTrace(CLASS_NAME, "...Registering Resources in Packs");
 		mResourceManager->loadResourcePacks();
 
 		mCurrentWorld = new World("Hello, World!");
@@ -78,10 +80,10 @@ void Brickblock::start(GLint argc, GLint **argv)
 			accumulatedTime += deltaTime;
 			lastTime = currentTime;
 
-			if (accumulatedTime >= LAG_CAP)
+			/*if (accumulatedTime >= LAG_CAP)
 			{
 				accumulatedTime = LAG_CAP;
-			}
+			}*/
 
 			while (accumulatedTime > TIME_SLICE)
 			{
@@ -90,7 +92,8 @@ void Brickblock::start(GLint argc, GLint **argv)
 				glfwPollEvents();
 			}
 
-			render(deltaTime);
+			render(accumulatedTime / TIME_SLICE);
+			//BBLogger::logDebug(CLASS_NAME, "Alpha: " + std::to_string(accumulatedTime / TIME_SLICE));
 		}
 
 		glfwDestroyWindow(windowHandle);
@@ -123,16 +126,21 @@ void Brickblock::update(const GLdouble& DELTA_TIME)
 }
 
 
-void Brickblock::render(const GLdouble& DELTA_TIME)
+void Brickblock::render(const GLdouble& alpha)
 {
 	++mFramesPerSecond;
 
 	glClearColor(1.0f, 0.6f, 0.3f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-	mCurrentWorld->render(DELTA_TIME);
+	mCurrentWorld->render(alpha);
 
 	//mSceneManager->render(DELTA_TIME);
 	//mWindow->render(DELTA_TIME);
 	glfwSwapBuffers(mWINDOW.getGLFWWindow());
+}
+
+const GLuint Brickblock::getTickCount() const
+{
+	return mTickCount;
 }

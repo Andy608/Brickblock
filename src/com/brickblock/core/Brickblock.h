@@ -25,6 +25,8 @@ namespace bb
 
 		void start(GLint argc, GLint **argv);
 
+		const GLuint getTickCount() const;
+
 	private:
 		static std::string CLASS_NAME;
 		GLboolean mIsInitialized;
@@ -39,7 +41,7 @@ namespace bb
 		static const GLfloat TIME_SLICE;
 		static const GLfloat LAG_CAP;
 
-		GLint mTickCount;
+		GLuint mTickCount;
 		GLint mFramesPerSecond;
 
 		Brickblock();

@@ -2,8 +2,8 @@
 #include <string>
 #include "Window.h"
 #include "../BrickblockInfo.h"
-#include "../../graphics/render/RenderManager.h"
-#include "../../graphics/Camera.h"
+#include "../../render/RenderManager.h"
+#include "../../render/camera/Camera.h"
 using namespace bb;
 
 GLint Window::width = 0;

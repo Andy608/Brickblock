@@ -3,11 +3,12 @@
 
 #include <glad\glad.h>
 #include <string>
+#include "../../../util/load/resource/Resource.h"
 
 namespace bb
 {
 	class DirectoryLocation;
-	class FileLocation
+	class FileLocation : public Resource
 	{
 	public:
 		static const std::string TXT_EXT;
@@ -16,8 +17,13 @@ namespace bb
 		static const std::string VS_EXT;
 		static const std::string FS_EXT;
 
-		FileLocation(const DirectoryLocation& PARENT_DIR, std::string fileName, const std::string& EXT);
+		FileLocation(std::string resourceID, const DirectoryLocation& PARENT_DIR, std::string fileName, const std::string& EXT);
 		~FileLocation();
+
+		const FileLocation& operator=(const FileLocation& another);
+
+		virtual void load();
+		virtual void unload();
 
 		std::string getName() const;
 		const std::string& getExt() const;

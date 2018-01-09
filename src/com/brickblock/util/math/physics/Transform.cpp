@@ -1,15 +1,16 @@
 #include "Transform.h"
+#include "../MatrixUtil.h"
+#include <glm/common.hpp>
 using namespace bb;
-
-//right handed system
-glm::vec3 Transform::WORLD_RIGHT	= glm::vec3(1.0f, 0.0f, 0.0f);
-glm::vec3 Transform::WORLD_UP		= glm::vec3(0.0f, 1.0f, 0.0f);
-glm::vec3 Transform::WORLD_FORWARD	= glm::vec3(0.0f, 0.0f, 1.0f);
 
 Transform::Transform(glm::vec3 position, glm::vec3 rotation, glm::vec3 scale) :
 	mPosition(position),
 	mRotation(rotation),
-	mScale(scale)
+	mScale(scale),
+	mPrevPosition(position),
+	mPrevRotation(rotation),
+	mPrevScale(scale),
+	mTransformationMatrix(MatrixUtil::createTransformationMat(mPosition, mRotation, mScale))
 {
 
 }
@@ -24,6 +25,7 @@ void Transform::setPosition(GLfloat x, GLfloat y, GLfloat z)
 	mPosition.x = x;
 	mPosition.y = y;
 	mPosition.z = z;
+	updateTransformationMatrix(mPosition, mRotation, mScale);
 }
 
 void Transform::setRotation(GLfloat x, GLfloat y, GLfloat z)
@@ -31,6 +33,7 @@ void Transform::setRotation(GLfloat x, GLfloat y, GLfloat z)
 	mRotation.x = x;
 	mRotation.y = y;
 	mRotation.z = z;
+	updateTransformationMatrix(mPosition, mRotation, mScale);
 }
 
 void Transform::setScale(GLfloat x, GLfloat y, GLfloat z)
@@ -38,6 +41,7 @@ void Transform::setScale(GLfloat x, GLfloat y, GLfloat z)
 	mScale.x = x;
 	mScale.y = y;
 	mScale.z = z;
+	updateTransformationMatrix(mPosition, mRotation, mScale);
 }
 
 void Transform::setPivot(GLfloat x, GLfloat y, GLfloat z)
@@ -45,6 +49,7 @@ void Transform::setPivot(GLfloat x, GLfloat y, GLfloat z)
 	mPivot.x = x;
 	mPivot.y = y;
 	mPivot.z = z;
+	updateTransformationMatrix(mPosition, mRotation, mScale);
 }
 
 
@@ -53,11 +58,13 @@ void Transform::addPosition(GLfloat x, GLfloat y, GLfloat z)
 	mPosition.x += x;
 	mPosition.y += y;
 	mPosition.z += z;
+	updateTransformationMatrix(mPosition, mRotation, mScale);
 }
 
 void Transform::addPosition(const glm::vec3& ANOTHER)
 {
 	mPosition += ANOTHER;
+	updateTransformationMatrix(mPosition, mRotation, mScale);
 }
 
 void Transform::addRotation(GLfloat x, GLfloat y, GLfloat z)
@@ -65,11 +72,13 @@ void Transform::addRotation(GLfloat x, GLfloat y, GLfloat z)
 	mRotation.x += x;
 	mRotation.y += y;
 	mRotation.z += z;
+	updateTransformationMatrix(mPosition, mRotation, mScale);
 }
 
 void Transform::addRotation(const glm::vec3& ANOTHER)
 {
 	mRotation += ANOTHER;
+	updateTransformationMatrix(mPosition, mRotation, mScale);
 }
 
 void Transform::addScale(GLfloat x, GLfloat y, GLfloat z)
@@ -77,11 +86,34 @@ void Transform::addScale(GLfloat x, GLfloat y, GLfloat z)
 	mScale.x += x;
 	mScale.y += y;
 	mScale.z += z;
+	updateTransformationMatrix(mPosition, mRotation, mScale);
 }
 
 void Transform::addScale(const glm::vec3& ANOTHER)
 {
 	mScale += ANOTHER;
+	updateTransformationMatrix(mPosition, mRotation, mScale);
+}
+
+void Transform::lerp(const GLdouble &alpha)
+{
+	glm::vec3 lerpedPos = glm::mix(mPrevPosition, mPosition, alpha);
+	glm::vec3 lerpedRot = glm::mix(mPrevRotation, mRotation, alpha);
+	glm::vec3 lerpedScale = glm::mix(mPrevScale, mScale, alpha);
+
+	updateTransformationMatrix(lerpedPos, lerpedRot, lerpedScale);
+}
+
+void Transform::update()
+{
+	mPrevPosition = mPosition;
+	mPrevRotation = mRotation;
+	mPrevScale = mScale;
+}
+
+void Transform::updateTransformationMatrix(const glm::vec3 &pos, const glm::vec3 &rot, const glm::vec3 &scale)
+{
+	mTransformationMatrix = MatrixUtil::createTransformationMat(pos, rot, scale);
 }
 
 const glm::vec3& Transform::getPosition() const
@@ -102,4 +134,9 @@ const glm::vec3& Transform::getScale() const
 const glm::vec3& Transform::getPivot() const
 {
 	return mPivot;
+}
+
+const glm::mat4x4& Transform::getTransformationMat() const
+{
+	return mTransformationMatrix;
 }

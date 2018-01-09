@@ -1,18 +1,23 @@
 #ifndef BB_TRANSFORM_H_
 #define BB_TRANSFORM_H_
 
-#include <glm\vec3.hpp>
-#include <glad\glad.h>
+#include <glm/vec3.hpp>
+#include <glm/vec4.hpp>
+#include <glm/mat4x4.hpp>
+#include <glad/glad.h>
 
 namespace bb
 {
 	class Transform
 	{
 	public:
-		//right handed system
-		static glm::vec3 WORLD_UP;
-		static glm::vec3 WORLD_RIGHT;
-		static glm::vec3 WORLD_FORWARD;
+		glm::vec3 mPosition;
+		glm::vec3 mRotation;
+		glm::vec3 mScale;
+
+		glm::vec3 mPrevPosition;
+		glm::vec3 mPrevRotation;
+		glm::vec3 mPrevScale;
 
 		Transform(glm::vec3 position = glm::vec3(), glm::vec3 rotation = glm::vec3(), glm::vec3 scale = glm::vec3(1.0f));
 		~Transform();
@@ -31,15 +36,20 @@ namespace bb
 		void addScale(GLfloat x, GLfloat y, GLfloat z);
 		void addScale(const glm::vec3& ANOTHER);
 
+		void lerp(const GLdouble &alpha);
+		void update();
+
 		const glm::vec3& getPosition() const;
 		const glm::vec3& getRotation() const;
 		const glm::vec3& getScale() const;
 		const glm::vec3& getPivot() const;
 
+		const glm::mat4x4& getTransformationMat() const;
+
 	private:
-		glm::vec3 mPosition;
-		glm::vec3 mRotation;
-		glm::vec3 mScale;
+		glm::mat4x4 mTransformationMatrix;
+
+		void updateTransformationMatrix(const glm::vec3 &pos, const glm::vec3 &rot, const glm::vec3 &scale);
 
 		//The point the object should rotate around in local space.
 		glm::vec3 mPivot;
