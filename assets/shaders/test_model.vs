@@ -9,6 +9,7 @@ uniform mat4 transformMatrix;
 uniform float time;
 
 out vec2 out_textureCoords;
+out vec4 out_color;
 
 float speed = 0.5;
 
@@ -28,4 +29,5 @@ void main()
 
     gl_Position = transformation * /*rotationMat **/ position;
     out_textureCoords = texCoords;
+	out_color = vec4(vertexPos, 1.0);
 }   

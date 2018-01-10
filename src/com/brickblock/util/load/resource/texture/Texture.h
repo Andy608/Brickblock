@@ -10,7 +10,7 @@ namespace bb
 	class Texture : public Resource
 	{
 	public:
-		Texture(std::string resourceID, const FileLocation &imageFileLocation);
+		Texture(std::string resourceID, FileLocation *imageFileLocation);
 		virtual ~Texture();
 
 		const Texture& operator=(const Texture& another);
@@ -23,7 +23,7 @@ namespace bb
 		const GLubyte* getPixelData() const;
 
 	private:
-		const FileLocation &mImageFileLocation;
+		FileLocation *mImageFileLocation;
 		GLint mWidth;
 		GLint mHeight;
 		GLint mColorChannels;

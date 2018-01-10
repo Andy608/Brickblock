@@ -22,6 +22,9 @@ Transform::~Transform()
 
 void Transform::setPosition(GLfloat x, GLfloat y, GLfloat z)
 {
+	mPrevPosition.x = x;
+	mPrevPosition.y = y;
+	mPrevPosition.z = z;
 	mPosition.x = x;
 	mPosition.y = y;
 	mPosition.z = z;
@@ -30,6 +33,9 @@ void Transform::setPosition(GLfloat x, GLfloat y, GLfloat z)
 
 void Transform::setRotation(GLfloat x, GLfloat y, GLfloat z)
 {
+	mPrevRotation.x = x;
+	mPrevRotation.y = y;
+	mPrevRotation.z = z;
 	mRotation.x = x;
 	mRotation.y = y;
 	mRotation.z = z;
@@ -38,6 +44,9 @@ void Transform::setRotation(GLfloat x, GLfloat y, GLfloat z)
 
 void Transform::setScale(GLfloat x, GLfloat y, GLfloat z)
 {
+	mPrevScale.x = x;
+	mPrevScale.y = y;
+	mPrevScale.z = z;
 	mScale.x = x;
 	mScale.y = y;
 	mScale.z = z;

@@ -1,5 +1,6 @@
 #include "FileLogger.h"
 #include "../filesystem/file/FileLocation.h"
+#include "BBLogger.h"
 using namespace bb;
 
 FileLogger::FileLogger(std::string fileLoggerName, FileLocation *fileLocation, std::string fileLoggerFormat, spdlog::level::level_enum loggerLevel) :
@@ -7,6 +8,11 @@ FileLogger::FileLogger(std::string fileLoggerName, FileLocation *fileLocation, s
 {
 	mFileLogger->set_pattern(mFORMAT);
 	mFileLogger->set_level(loggerLevel);
+
+	if (!mFileLocation->isCreated())
+	{
+		mFileLocation->createFile();
+	}
 }
 
 FileLogger::~FileLogger()

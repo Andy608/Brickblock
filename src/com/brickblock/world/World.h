@@ -7,7 +7,7 @@
 
 namespace bb
 {
-	class Model;
+	class EntityModel;
 	class World
 	{
 	public:
@@ -20,7 +20,7 @@ namespace bb
 	private:
 		//Temporarily have model list. Should be entity list
 		std::string mWorldName;
-		std::vector<Model*> *mModelList;
+		std::vector<EntityModel*> *mModelList;
 	};
 }
 

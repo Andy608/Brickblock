@@ -7,7 +7,7 @@ using namespace bb;
 const std::string Shader::CLASS_NAME = "Shader.cpp";
 const GLint Shader::ERROR_LOG_SIZE = 512;
 
-Shader::Shader(std::string resourceID, const EnumShaderType& SHADER_TYPE, const FileLocation& shaderLocation) :
+Shader::Shader(std::string resourceID, const EnumShaderType &SHADER_TYPE, FileLocation *shaderLocation) :
 	Resource(resourceID, Resource::ResourceType::SHADER),
 	mSHADER_TYPE(SHADER_TYPE), mShaderLocation(shaderLocation)
 {
@@ -20,6 +20,8 @@ Shader::~Shader()
 	{
 		unload();
 	}
+
+	delete mShaderLocation;
 }
 
 const Shader& Shader::operator=(const Shader& another)
@@ -78,7 +80,7 @@ const Shader::EnumShaderType& Shader::getShaderType() const
 
 const FileLocation& Shader::getShaderLocation() const
 {
-	return mShaderLocation;
+	return *mShaderLocation;
 }
 
 const GLint& Shader::getGLShaderID() const
@@ -88,5 +90,5 @@ const GLint& Shader::getGLShaderID() const
 
 void Shader::extractFromFile()
 {
-	StringFileReader::getInstance().getContents(mShaderLocation, mShaderCode);
+	StringFileReader::getInstance().getContents(*mShaderLocation, mShaderCode);
 }

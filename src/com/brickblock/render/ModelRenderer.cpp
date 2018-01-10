@@ -1,7 +1,7 @@
 #include "ModelRenderer.h"
 #include "../util/load/resource/shader/ShaderProgram.h"
 #include "../util/load/resource/mesh/util/TextureWrapper.h"
-#include "../model/Model.h"
+#include "../model/entity/EntityModel.h"
 #include "RenderManager.h"
 #include "camera/Camera.h"
 #include "../util/logger/BBLogger.h"
@@ -9,7 +9,7 @@
 #include <GLFW/glfw3.h>
 using namespace bb;
 
-void ModelRenderer::render(const GLdouble& alpha, const std::vector<Model*>& MODEL_LIST)
+void ModelRenderer::render(const GLdouble& alpha, const std::vector<EntityModel*>& MODEL_LIST)
 {
 	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 	glEnable(GL_DEPTH_TEST);

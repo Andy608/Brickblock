@@ -1,8 +1,6 @@
 #include "TextureResourcePack.h"
 #include "../../../../util/filesystem/file/FileLocation.h"
 #include "../../../../util/filesystem/directory/DirectoryList.h"
-#include "../list/FileLocationList.h"
-#include "../list/TextureList.h"
 using namespace bb;
 
 TextureResourcePack *TextureResourcePack::instance = nullptr;
@@ -24,11 +22,11 @@ TextureResourcePack::TextureResourcePack(std::string resourceID) :
 
 void TextureResourcePack::load()
 {
-	Texture *testTex = new Texture(TEXTURE__TEST, FileLocationList::getInstance().testFileLocation);
+	mTestTex = new Texture(TEXTURE__TEST, new FileLocation(*DirectoryList::getInstance().mTextureDirectory, "test_img", FileLocation::PNG_EXT));
 
-	registerResource(testTex);
+	registerResource(mTestTex);
 
 	ResourcePack::load();
 
-	TextureList::init();
+	//TextureList::init();
 }

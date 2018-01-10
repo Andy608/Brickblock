@@ -3,8 +3,6 @@
 #include "../shader/ShaderProgram.h"
 #include "../../../../util/filesystem/file/FileLocation.h"
 #include "../../../../util/filesystem/directory/DirectoryList.h"
-#include "../list/FileLocationList.h"
-#include "../list/ShaderList.h"
 using namespace bb;
 
 ShaderResourcePack *ShaderResourcePack::instance = nullptr;
@@ -28,18 +26,16 @@ ShaderResourcePack::ShaderResourcePack(std::string resourceID) :
 
 void ShaderResourcePack::load()
 {
-	Shader *testModelVS = new Shader(SHADER__TEST_MODEL_VS, Shader::EnumShaderType::VERTEX, FileLocationList::getInstance().testModelVS);
-	Shader *testModelFS = new Shader(SHADER__TEST_MODEL_FS, Shader::EnumShaderType::FRAGMENT, FileLocationList::getInstance().testModelFS);
-	ShaderProgram *testModelProgram = new ShaderProgram(SHADER__TEST_MODEL_SP);
+	mTestModelVS = new Shader(SHADER__TEST_MODEL_VS, Shader::EnumShaderType::VERTEX, new FileLocation(*DirectoryList::getInstance().mShaderDirectory, "test_model", FileLocation::VS_EXT));
+	mTestModelFS = new Shader(SHADER__TEST_MODEL_FS, Shader::EnumShaderType::FRAGMENT, new FileLocation(*DirectoryList::getInstance().mShaderDirectory, "test_model", FileLocation::FS_EXT));
+	mTestModelProgram = new ShaderProgram(SHADER__TEST_MODEL_SP);
 
-	testModelProgram->addShader(testModelVS);
-	testModelProgram->addShader(testModelFS);
+	mTestModelProgram->addShader(mTestModelVS);
+	mTestModelProgram->addShader(mTestModelFS);
 
-	registerResource(testModelVS);
-	registerResource(testModelFS);
-	registerResource(testModelProgram);
+	registerResource(mTestModelVS);
+	registerResource(mTestModelFS);
+	registerResource(mTestModelProgram);
 
 	ResourcePack::load();
-
-	ShaderList::init();
 }

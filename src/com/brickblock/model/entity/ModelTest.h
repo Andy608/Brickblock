@@ -1,11 +1,11 @@
 #ifndef BB_MODELTEST_H_
 #define BB_MODELTEST_H_
 
-#include "Model.h"
+#include "EntityModel.h"
 
 namespace bb
 {
-	class ModelTest : public Model
+	class ModelTest : public EntityModel
 	{
 	public:
 		ModelTest();

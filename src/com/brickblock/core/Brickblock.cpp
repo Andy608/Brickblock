@@ -1,15 +1,12 @@
 #include <iostream>
 #include "Brickblock.h"
 #include "BrickblockInfo.h"
-#include "window/Window.h"
+#include "../window/Window.h"
 #include "../util/logger/BBLogger.h"
 #include "../util/filesystem/directory/DirectoryLocation.h"
 #include "../util/filesystem/file/FileLocation.h"
 #include "../util/load/ResourceManager.h"
-
 #include "../util/filesystem/directory/DirectoryList.h"
-#include "../util/load/resource/shader/Shader.h"
-
 #include "../world/World.h"
 
 using namespace bb;

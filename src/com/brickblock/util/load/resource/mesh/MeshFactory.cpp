@@ -19,10 +19,21 @@ const std::string MeshFactory::FACE_DELIMITER = "f ";
 const GLuint MeshFactory::INDEX_DELIMITER_START = 0;
 const GLuint MeshFactory::INDEX_DELIMITER_END = 2;
 
-void MeshFactory::loadMeshDataFromFile(Mesh& mesh, const FileLocation &meshFileLocation)
+void MeshFactory::loadMeshDataFromFile(Mesh& mesh, FileLocation *meshFileLocation)
 {
+	if (!meshFileLocation)
+	{
+		BBLogger::logError("MeshFactory.cpp", "The file location is null. Cannot create mesh from null file location.");
+		return;
+	}
+	else if (!meshFileLocation->isExist())
+	{
+		BBLogger::logError("MeshFactory.cpp", "The file location: \'" + meshFileLocation->getPath() + "\' does not exist.");
+		return;
+	}
+
 	std::vector<std::string> lineInfo;
-	StringFileReader::getInstance().getContentsByLine(meshFileLocation, lineInfo);
+	StringFileReader::getInstance().getContentsByLine(*meshFileLocation, lineInfo);
 
 	if (lineInfo.size() > 0)
 	{
@@ -81,6 +92,7 @@ void MeshFactory::loadMeshDataFromFile(Mesh& mesh, const FileLocation &meshFileL
 				getIntsFromString(facesAsStrings.at(strIndex), faceInformation, 0, SLASH_DELIMITER);
 
 				Vertex potentialVertex = Vertex(faceInformation[0], faceInformation[1], faceInformation[2]);
+				
 				GLboolean found = GL_FALSE;
 
 				GLuint i;
@@ -127,17 +139,28 @@ void MeshFactory::loadMeshDataFromFile(Mesh& mesh, const FileLocation &meshFileL
 			sortedPositions.push_back(unorderedPositions.at(currentVertex.mPositionIndex * 3 + 1));
 			sortedPositions.push_back(unorderedPositions.at(currentVertex.mPositionIndex * 3 + 2));
 
-			sortedTexCoords.push_back(unorderedTexCoords.at(currentVertex.mTextureIndex * 2));
-			sortedTexCoords.push_back(1.0f - unorderedTexCoords.at(currentVertex.mTextureIndex * 2 + 1));
+			if (!unorderedTexCoords.empty())
+			{
+				sortedTexCoords.push_back(unorderedTexCoords.at(currentVertex.mTextureIndex * 2));
+				sortedTexCoords.push_back(1.0f - unorderedTexCoords.at(currentVertex.mTextureIndex * 2 + 1));
+			}
 
-			sortedNormals.push_back(unorderedNormals.at(currentVertex.mNormalIndex * 3));
-			sortedNormals.push_back(unorderedNormals.at(currentVertex.mNormalIndex * 3 + 1));
-			sortedNormals.push_back(unorderedNormals.at(currentVertex.mNormalIndex * 3 + 2));
+			if (!unorderedNormals.empty())
+			{
+				sortedNormals.push_back(unorderedNormals.at(currentVertex.mNormalIndex * 3));
+				sortedNormals.push_back(unorderedNormals.at(currentVertex.mNormalIndex * 3 + 1));
+				sortedNormals.push_back(unorderedNormals.at(currentVertex.mNormalIndex * 3 + 2));
+			}
 		}
 
 		mesh.addBufferData(new VBOWrapper(VBOWrapper::BufferType::POSITION, sortedPositions, 3));
-		mesh.addBufferData(new VBOWrapper(VBOWrapper::BufferType::TEX_COORDS, sortedTexCoords, 2));
-		mesh.addBufferData(new VBOWrapper(VBOWrapper::BufferType::NORMALS, sortedNormals, 3));
+	
+		if (!sortedTexCoords.empty())
+			mesh.addBufferData(new VBOWrapper(VBOWrapper::BufferType::TEX_COORDS, sortedTexCoords, 2));
+		
+		if (!sortedNormals.empty())
+			mesh.addBufferData(new VBOWrapper(VBOWrapper::BufferType::NORMALS, sortedNormals, 3));
+		
 		mesh.setElementBuffer(new EBOWrapper(indices));
 
 		mesh.mVAOWrapper = new VAOWrapper();
@@ -161,7 +184,7 @@ void MeshFactory::loadMeshDataFromFile(Mesh& mesh, const FileLocation &meshFileL
 	}
 	else
 	{
-		BBLogger::logWarn("MeshFactory.cpp", "The file was empty.");
+		BBLogger::logWarn("MeshFactory.cpp", "The file: " + meshFileLocation->getPath() + " was empty.");
 	}
 }
 
@@ -196,7 +219,7 @@ void MeshFactory::getIntsFromString(std::string line, std::vector<GLint>& data, 
 	GLint extractedInt;
 
 	std::vector<std::string> ints;
-	StringUtil::split(line.c_str(), DELIMITER, GL_FALSE, ints);
+	StringUtil::split(line.c_str(), DELIMITER, GL_TRUE, ints);
 
 	/*GLuint i;
 	for (i = 0; i < ints.size(); ++i)
@@ -207,7 +230,15 @@ void MeshFactory::getIntsFromString(std::string line, std::vector<GLint>& data, 
 	GLuint i;
 	for (i = 0; i < ints.size(); ++i)
 	{
-		extractedInt = std::stoi(ints.at(i)) - 1;
+		if (ints.at(i) == " ")
+		{
+			extractedInt = -1;
+		}
+		else
+		{
+			extractedInt = std::stoi(ints.at(i)) - 1;
+		}
+		
 		data.push_back(extractedInt);
 	}
 }

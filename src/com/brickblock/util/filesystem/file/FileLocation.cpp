@@ -10,15 +10,15 @@ const std::string FileLocation::OBJ_EXT = ".obj";
 const std::string FileLocation::VS_EXT = ".vs";
 const std::string FileLocation::FS_EXT = ".fs";
 
-FileLocation::FileLocation(std::string resourceID, const DirectoryLocation& PARENT_DIR, std::string fileName, const std::string& EXT) :
-	Resource(resourceID, Resource::ResourceType::FILE_LOCATION), mPARENT_DIRECTORY(PARENT_DIR), mFILE_NAME(fileName), mFILE_EXTENSION(EXT), mIsCreated(GL_FALSE)
+FileLocation::FileLocation(const DirectoryLocation& PARENT_DIR, std::string fileName, const std::string& EXT) :
+	mPARENT_DIRECTORY(PARENT_DIR), mFILE_NAME(fileName), mFILE_EXTENSION(EXT), mIsCreated(GL_FALSE)
 {
 
 }
 
 FileLocation::~FileLocation()
 {
-	mIsLoaded = GL_FALSE;
+	
 }
 
 const FileLocation& FileLocation::operator=(const FileLocation& another)
@@ -73,20 +73,6 @@ const GLboolean FileLocation::isCreated() const
 {
 	return mIsCreated;
 }
-
-void FileLocation::load()
-{
-	if (mIsLoaded)
-	{
-		BBLogger::logWarn("FileLocation.cpp", "This file is already loaded.");
-		return;
-	}
-
-	createFile();
-	mIsLoaded = GL_TRUE;
-}
-
-void FileLocation::unload() {/* Once file location is created it can't get unloaded. */}
 
 GLboolean FileLocation::createFile()
 {

@@ -17,7 +17,7 @@ namespace bb
 	public:
 		friend struct MeshFactory;
 		//Load mesh from file. (Make another constructor in the future to load not from file --subclass loading).
-		Mesh(std::string resourceID, const FileLocation &meshDataLocation);
+		Mesh(std::string resourceID, FileLocation *meshDataLocation);
 		virtual ~Mesh();
 
 		const Mesh& operator=(const Mesh& another);
@@ -39,7 +39,7 @@ namespace bb
 		EBOWrapper *mEBOWrapper;
 
 		//Null if not made from file.
-		const FileLocation &mMeshDataLocation;
+		FileLocation *mMeshDataLocation;
 
 		glm::vec4 mColor; //values between 0-1
 

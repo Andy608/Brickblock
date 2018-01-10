@@ -10,6 +10,14 @@ namespace bb
 	{
 		friend class ResourceManager;
 
+	private:
+		static TextureResourcePack *instance;
+
+		Texture *mTestTex;
+
+		TextureResourcePack(std::string resourceID);
+		void load();
+
 	public:
 		static const std::string TEXTURE__TEST;
 
@@ -19,11 +27,7 @@ namespace bb
 		TextureResourcePack(TextureResourcePack const &copy) = delete;
 		void operator=(TextureResourcePack const &copy) = delete;
 
-	private:
-		static TextureResourcePack *instance;
-
-		TextureResourcePack(std::string resourceID);
-		void load();
+		static Texture& testTex() { return *instance->mTestTex;  }
 	};
 }
 

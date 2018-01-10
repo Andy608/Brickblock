@@ -10,6 +10,19 @@ namespace bb
 	{
 	friend class ResourceManager;
 
+	private:
+		static const std::string SHADER__TEST_MODEL_VS;
+		static const std::string SHADER__TEST_MODEL_FS;
+
+		static ShaderResourcePack *instance;
+
+		Shader *mTestModelVS;
+		Shader *mTestModelFS;
+		ShaderProgram *mTestModelProgram;
+
+		ShaderResourcePack(std::string resourceID);
+		void load();
+
 	public:
 		static const std::string SHADER__TEST_MODEL_SP;
 
@@ -19,13 +32,7 @@ namespace bb
 		ShaderResourcePack(ShaderResourcePack const &copy) = delete;
 		void operator=(ShaderResourcePack const &copy) = delete;
 
-	private:
-		static const std::string SHADER__TEST_MODEL_VS;
-		static const std::string SHADER__TEST_MODEL_FS;
-
-		static ShaderResourcePack *instance;
-		ShaderResourcePack(std::string resourceID);
-		void load();
+		static const ShaderProgram& testModelProgram() { return *instance->mTestModelProgram; }
 	};
 }
 

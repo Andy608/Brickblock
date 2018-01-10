@@ -15,6 +15,8 @@ DirectoryList::~DirectoryList()
 	delete mAssetDirectory;
 	
 	delete mMeshDirectory;
+	delete mBrickMeshDirectory;
+
 	delete mShaderDirectory;
 	delete mTextureDirectory;
 }
@@ -27,6 +29,8 @@ void DirectoryList::init()
 	mAssetDirectory = new DirectoryLocation(mRootDirectory->getPath(), "assets", DirectoryLocation::RELATIVE_PATH);
 	
 	mMeshDirectory = new DirectoryLocation(mAssetDirectory->getPath(), "meshes", DirectoryLocation::RELATIVE_PATH);
+	mBrickMeshDirectory = new DirectoryLocation(mMeshDirectory->getPath(), "brick", DirectoryLocation::RELATIVE_PATH);
+	
 	mShaderDirectory = new DirectoryLocation(mAssetDirectory->getPath(), "shaders", DirectoryLocation::RELATIVE_PATH);
 	mTextureDirectory = new DirectoryLocation(mAssetDirectory->getPath(), "textures", DirectoryLocation::RELATIVE_PATH);
 
@@ -36,6 +40,8 @@ void DirectoryList::init()
 	mAssetDirectory->createDirectory();
 	
 	mMeshDirectory->createDirectory();
+	mBrickMeshDirectory->createDirectory();
+
 	mShaderDirectory->createDirectory();
 	mTextureDirectory->createDirectory();
 }

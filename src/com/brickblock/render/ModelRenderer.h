@@ -6,12 +6,12 @@
 
 namespace bb
 {
-	class Model;
+	class EntityModel;
 	class ShaderProgram;
 	class ModelRenderer : public Renderer
 	{
 	public:
-		void render(const GLdouble& DELTA_TIME, const std::vector<Model*>& MODEL_LIST);
+		void render(const GLdouble& DELTA_TIME, const std::vector<EntityModel*>& MODEL_LIST);
 	};
 }
 

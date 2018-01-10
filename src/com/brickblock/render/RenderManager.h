@@ -2,10 +2,10 @@
 #define BB_RENDERMANAGER_H_
 
 #include <glad/glad.h>
+#include "camera/Camera.h"
 
 namespace bb
 {
-	class Camera;
 	class ShaderProgram;
 	class ModelRenderer;
 

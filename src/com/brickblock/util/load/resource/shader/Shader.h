@@ -19,8 +19,8 @@ namespace bb
 			FRAGMENT
 		};
 
-		Shader(std::string resourceID, const EnumShaderType& SHADER_TYPE, const FileLocation& shaderLocation);
-		~Shader();
+		Shader(std::string resourceID, const EnumShaderType& SHADER_TYPE, FileLocation *shaderLocation);
+		virtual ~Shader();
 
 		const Shader& operator=(const Shader& another);
 
@@ -35,8 +35,8 @@ namespace bb
 		static const std::string CLASS_NAME;
 		static const GLint ERROR_LOG_SIZE;
 
-		const EnumShaderType& mSHADER_TYPE;
-		const FileLocation& mShaderLocation;
+		const EnumShaderType &mSHADER_TYPE;
+		FileLocation  *mShaderLocation;
 		std::string mShaderCode;
 		GLint mShaderID;
 

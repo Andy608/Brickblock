@@ -11,7 +11,7 @@ namespace bb
 	class Mesh;
 	struct MeshFactory
 	{
-		static void loadMeshDataFromFile(Mesh& mesh, const FileLocation &meshFileLocation);
+		static void loadMeshDataFromFile(Mesh& mesh, FileLocation *meshFileLocation);
 
 
 	private:

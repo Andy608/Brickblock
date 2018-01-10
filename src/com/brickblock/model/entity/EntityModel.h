@@ -1,7 +1,7 @@
-#ifndef BB_MODEL_H_
-#define BB_MODEL_H_
+#ifndef BB_ENTITYMODEL_H_
+#define BB_ENTITYMODEL_H_
 
-#include "../util/load/resource/shader/ShaderProgram.h"
+#include "../../util/load/resource/shader/ShaderProgram.h"
 #include <glm/mat4x4.hpp>
 
 namespace bb
@@ -9,13 +9,13 @@ namespace bb
 	class Mesh;
 	class Transform;
 	struct TextureWrapper;
-	class Model
+	class EntityModel
 	{
 		friend struct TextureFactory;
 
 	public:
-		Model();
-		virtual ~Model();
+		EntityModel();
+		virtual ~EntityModel();
 
 		void lerpPosition(const GLdouble &alpha);
 

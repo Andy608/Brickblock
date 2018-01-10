@@ -12,7 +12,7 @@ using namespace bb;
 
 const std::string Mesh::CLASS_NAME = "Mesh.cpp";
 
-Mesh::Mesh(std::string resourceID, const FileLocation &meshDataLocation) :
+Mesh::Mesh(std::string resourceID, FileLocation *meshDataLocation) :
 	Resource(resourceID, Resource::ResourceType::MESH),
 	mVAOWrapper(nullptr),
 	mVBOWrappers(new std::vector<VBOWrapper*>()),
@@ -31,6 +31,7 @@ Mesh::~Mesh()
 	}
 
 	delete mVBOWrappers;
+	delete mMeshDataLocation;
 }
 
 const Mesh& Mesh::operator=(const Mesh& another)

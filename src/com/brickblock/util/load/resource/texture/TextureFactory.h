@@ -6,7 +6,7 @@
 
 namespace bb
 {
-	class Model;
+	class EntityModel;
 	class Texture;
 	struct TextureFactory
 	{
@@ -24,7 +24,7 @@ namespace bb
 		//Uses graphics settings to decide how image should display
 		//static void setTexture(Model &model, Texture &texture);
 
-		static void setTexture(Model &model, Texture &texture,
+		static void setTexture(EntityModel &model, Texture &texture,
 			const TextureWrapper::WrapStyle& wrapStyleS, const TextureWrapper::WrapStyle& wrapStyleT,
 			const TextureWrapper::MinFilter& minifyFiler, const TextureWrapper::MagFilter& magnifyFilter);
 

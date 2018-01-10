@@ -4,6 +4,7 @@
 #include <glad/glad.h>
 #include <glm/vec3.hpp>
 #include <glm/mat4x4.hpp>
+#include "../../util/math/physics/Transform.h"
 
 namespace bb
 {
@@ -41,6 +42,7 @@ namespace bb
 	private:
 		static const GLfloat NEAR_PLANE;
 		static const GLfloat FAR_PLANE;
+
 		static glm::mat4 perspectiveMatrix;
 		static glm::mat4 orthoMatrix;
 

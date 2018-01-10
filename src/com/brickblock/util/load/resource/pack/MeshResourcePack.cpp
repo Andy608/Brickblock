@@ -1,15 +1,9 @@
 #include "MeshResourcePack.h"
 #include "../../../../util/filesystem/file/FileLocation.h"
 #include "../../../../util/filesystem/directory/DirectoryList.h"
-#include "FileLocResourcePack.h"
-#include "../mesh/MeshFactory.h"
-#include "../list/FileLocationList.h"
-#include "../list/MeshList.h"
 using namespace bb;
 
 MeshResourcePack *MeshResourcePack::instance = nullptr;
-
-const std::string MeshResourcePack::MESH__TEST = "mesh__test";
 
 void MeshResourcePack::init()
 {
@@ -27,14 +21,20 @@ MeshResourcePack::MeshResourcePack(std::string resourceID) :
 
 void MeshResourcePack::load()
 {
-	const FileLocResourcePack& fileLoc = FileLocResourcePack::getInstance();
-
 	//Load all mess objects here.
-	Mesh *testMesh = new Mesh(MESH__TEST, FileLocationList::getInstance().meshFileLocation);
+	mTestMesh = new Mesh("mesh__test", new FileLocation(*DirectoryList::getInstance().mMeshDirectory, "test_cube", FileLocation::OBJ_EXT));
 
-	registerResource(testMesh);
+	mStandardBrickTop = new Mesh("mesh__standard_brick_top", new FileLocation(*DirectoryList::getInstance().mBrickMeshDirectory, "top", FileLocation::OBJ_EXT));
+	mStandardBrickBottom = new Mesh("mesh__standard_brick_bottom", new FileLocation(*DirectoryList::getInstance().mBrickMeshDirectory, "bottom", FileLocation::OBJ_EXT));
+	mStandardBrickSide = new Mesh("mesh__standard_brick_side", new FileLocation(*DirectoryList::getInstance().mBrickMeshDirectory, "wall_south", FileLocation::OBJ_EXT));
+
+	mStandardBrickTest = new Mesh("mesh__standard_brick_test", new FileLocation(*DirectoryList::getInstance().mBrickMeshDirectory, "brick_final", FileLocation::OBJ_EXT));
+
+	registerResource(mTestMesh);
+	registerResource(mStandardBrickTop);
+	registerResource(mStandardBrickBottom);
+	registerResource(mStandardBrickSide);
+	registerResource(mStandardBrickTest);
 
 	ResourcePack::load();
-	
-	MeshList::init();
 }

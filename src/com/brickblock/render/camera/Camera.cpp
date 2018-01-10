@@ -1,5 +1,4 @@
 #include "Camera.h"
-#include "../../util/math/physics/Transform.h"
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
@@ -60,10 +59,10 @@ void Camera::updateProjectionMatrix(GLint viewportWidth, GLint viewportHeight)
 		FAR_PLANE);
 	//else
 	orthoMatrix = glm::ortho(
-		-static_cast<GLfloat>(viewportWidth) / 2.0f,
-		static_cast<GLfloat>(viewportWidth) / 2.0f,
-		-static_cast<GLfloat>(viewportHeight) / 2.0f,
-		static_cast<GLfloat>(viewportHeight) / 2.0f,
+		-static_cast<GLfloat>(viewportWidth) / static_cast<GLfloat>(viewportHeight),
+		static_cast<GLfloat>(viewportWidth) / static_cast<GLfloat>(viewportHeight),
+		-1.0f,
+		1.0f,
 		NEAR_PLANE, FAR_PLANE);
 }
 

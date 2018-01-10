@@ -1,19 +1,19 @@
 #include "World.h"
-#include "../model/ModelTest.h"
+#include "../model/entity/ModelTest.h"
 #include "../render/RenderManager.h"
 #include "../render/ModelRenderer.h"
 #include "../util/load/resource/texture/TextureFactory.h"
-#include "../util/load/resource/list/ShaderList.h"
-#include "../util/load/resource/list/TextureList.h"
+#include "../util/load/resource/pack/TextureResourcePack.h"
+#include "../util/load/resource/pack/ShaderResourcePack.h"
 #include "../render/camera/Camera.h"
 using namespace bb;
 
 World::World(std::string worldName) :
 	mWorldName(worldName),
-	mModelList(new std::vector<Model*>())
+	mModelList(new std::vector<EntityModel*>())
 {
 	ModelTest *testModel = new ModelTest();
-	TextureFactory::setTexture(*testModel, TextureList::getInstance().testTexture,
+	TextureFactory::setTexture(*testModel, TextureResourcePack::testTex(),
 		TextureWrapper::WrapStyle::CLAMP_TO_EDGE, TextureWrapper::WrapStyle::CLAMP_TO_EDGE,
 		TextureWrapper::MinFilter::LINEAR_MIPMAP_LINEAR, TextureWrapper::MagFilter::LINEAR);
 
@@ -44,6 +44,6 @@ void World::update(const GLdouble& deltaTime)
 
 void World::render(const GLdouble& alpha)
 {
-	RenderManager::getInstance().setShaderProgram(ShaderList::getInstance().meshShaderProgram);
+	RenderManager::getInstance().setShaderProgram(ShaderResourcePack::testModelProgram());
 	RenderManager::getInstance().getModelRenderer().render(alpha, *mModelList);
 }

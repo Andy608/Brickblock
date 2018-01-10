@@ -3,7 +3,6 @@
 #include "resource/pack/MeshResourcePack.h"
 #include "resource/pack/ShaderResourcePack.h"
 #include "resource/pack/TextureResourcePack.h"
-#include "resource/pack/FileLocResourcePack.h"
 #include "../../util/logger/BBLogger.h"
 using namespace bb;
 
@@ -34,7 +33,6 @@ ResourceManager::~ResourceManager()
 
 void ResourceManager::createResourcePacks()
 {
-	FileLocResourcePack::init();
 	MeshResourcePack::init();
 	ShaderResourcePack::init();
 	TextureResourcePack::init();
@@ -42,7 +40,6 @@ void ResourceManager::createResourcePacks()
 
 void ResourceManager::registerResourcePacks()
 {
-	registerResourcePack(FileLocResourcePack::instance);
 	registerResourcePack(MeshResourcePack::instance);
 	registerResourcePack(ShaderResourcePack::instance);
 	registerResourcePack(TextureResourcePack::instance);
