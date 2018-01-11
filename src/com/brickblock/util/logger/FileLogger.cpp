@@ -9,7 +9,7 @@ FileLogger::FileLogger(std::string fileLoggerName, FileLocation *fileLocation, s
 	mFileLogger->set_pattern(mFORMAT);
 	mFileLogger->set_level(loggerLevel);
 
-	if (!mFileLocation->isCreated())
+	if (!mFileLocation->isExist())
 	{
 		mFileLocation->createFile();
 	}

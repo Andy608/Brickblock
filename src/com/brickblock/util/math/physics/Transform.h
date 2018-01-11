@@ -19,6 +19,10 @@ namespace bb
 		glm::vec3 mPrevRotation;
 		glm::vec3 mPrevScale;
 
+		glm::vec3 mLerpedPosition;
+		glm::vec3 mLerpedRotation;
+		glm::vec3 mLerpedScale;
+
 		Transform(glm::vec3 position = glm::vec3(), glm::vec3 rotation = glm::vec3(), glm::vec3 scale = glm::vec3(1.0f));
 		~Transform();
 

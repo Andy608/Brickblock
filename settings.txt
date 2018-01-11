@@ -1,0 +1,5 @@
+window_close=256
+move_forward=87
+move_backward=83
+move_left=65
+move_right=68

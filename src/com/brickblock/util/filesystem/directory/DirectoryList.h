@@ -21,6 +21,7 @@ namespace bb
 		void operator=(DirectoryList const& copy) = delete;
 
 		DirectoryLocation *mRootDirectory;
+
 		DirectoryLocation *mLoggerDirectory;//Should be in appdata
 
 		DirectoryLocation *mAssetDirectory;//Should be in program folder

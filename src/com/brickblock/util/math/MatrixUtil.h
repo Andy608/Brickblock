@@ -18,7 +18,7 @@ namespace bb
 		static void rotateAboutXAxis(glm::vec3 &vec, GLfloat angle);
 		static void rotateAboutYAxis(glm::vec3 &vec, GLfloat angle);
 		static void rotateAboutZAxis(glm::vec3 &vec, GLfloat angle);
-	
+
 		static glm::mat4x4 createTranslationMat(const glm::vec3 &position);
 		static glm::mat4x4 createRotationMat(const glm::vec3 &rotation);
 		static glm::mat4x4 createScaleMat(const glm::vec3 &scale);

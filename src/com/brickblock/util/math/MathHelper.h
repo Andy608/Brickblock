@@ -2,6 +2,7 @@
 #define BB_MATHHELPER_H_
 
 #include <glad/glad.h>
+#include <glm/vec3.hpp>
 
 namespace bb
 {
@@ -12,8 +13,8 @@ namespace bb
 
 		static GLfloat toRadians(const GLfloat& degrees);
 		static GLfloat toDegrees(const GLfloat& radians);
-		//static void toRadians(GLfloat& degrees);
-		//static void toDegrees(GLfloat& radians);
+
+		static GLfloat magnitudeSquared(glm::vec3 &vec);
 	};
 }
 

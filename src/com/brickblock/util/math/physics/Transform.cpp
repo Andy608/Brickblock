@@ -10,6 +10,9 @@ Transform::Transform(glm::vec3 position, glm::vec3 rotation, glm::vec3 scale) :
 	mPrevPosition(position),
 	mPrevRotation(rotation),
 	mPrevScale(scale),
+	mLerpedPosition(position),
+	mLerpedRotation(rotation),
+	mLerpedScale(scale),
 	mTransformationMatrix(MatrixUtil::createTransformationMat(mPosition, mRotation, mScale))
 {
 
@@ -106,11 +109,11 @@ void Transform::addScale(const glm::vec3& ANOTHER)
 
 void Transform::lerp(const GLdouble &alpha)
 {
-	glm::vec3 lerpedPos = glm::mix(mPrevPosition, mPosition, alpha);
-	glm::vec3 lerpedRot = glm::mix(mPrevRotation, mRotation, alpha);
-	glm::vec3 lerpedScale = glm::mix(mPrevScale, mScale, alpha);
+	mLerpedPosition = glm::mix(mPrevPosition, mPosition, alpha);
+	mLerpedRotation = glm::mix(mPrevRotation, mRotation, alpha);
+	mLerpedScale = glm::mix(mPrevScale, mScale, alpha);
 
-	updateTransformationMatrix(lerpedPos, lerpedRot, lerpedScale);
+	updateTransformationMatrix(mLerpedPosition, mLerpedRotation, mLerpedScale);
 }
 
 void Transform::update()

@@ -27,6 +27,10 @@ ModelTest::~ModelTest()
 
 void ModelTest::update(const GLdouble &deltaTime)
 {
+	EntityModel::update(deltaTime);
+	mTest->mMeshTransform->update();
+	mOrbit->mMeshTransform->update();
+
 	Transform *orbitTransform = mOrbit->mMeshTransform;
 	
 	static GLdouble time = 0.0f;
@@ -43,10 +47,6 @@ void ModelTest::update(const GLdouble &deltaTime)
 	//mTest->mMeshTransform->mRotation.z += (2.0f * deltaTime);
 
 	//mModelTransform->mScale += (5.0f * deltaTime * (sin(MathHelper::toRadians(time))));
-
-	EntityModel::update(deltaTime);
-	mTest->mMeshTransform->update();
-	mOrbit->mMeshTransform->update();
 }
 
 void ModelTest::render(const GLdouble &alpha, const ShaderProgram &activeShader)

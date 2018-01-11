@@ -18,7 +18,8 @@ namespace bb
 		void updateViewMatrix();
 		static void updateProjectionMatrix(GLint viewportWidth, GLint viewportHeight);
 
-		virtual void update(const GLdouble& DELTA_TIME);
+		virtual void update(const GLdouble &deltaTime);
+		virtual void render(const GLdouble &alpha);
 
 		Transform* getTransform() const;
 
@@ -36,6 +37,7 @@ namespace bb
 		glm::vec3 mCameraRight;
 
 		glm::vec3 mLookDirection;
+		glm::vec3 mMoveDirection;
 
 		void updateBasis();
 

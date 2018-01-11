@@ -8,6 +8,7 @@ namespace bb
 {
 	class Window;
 	class ResourceManager;
+	class GameSettings;
 	class World;
 
 	class Brickblock
@@ -33,6 +34,8 @@ namespace bb
 		GLboolean mIsRunning;
 
 		ResourceManager *mResourceManager;
+		GameSettings *mGameSettings;
+
 		const Window &mWINDOW;
 
 		World *mCurrentWorld;

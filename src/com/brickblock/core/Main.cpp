@@ -1,10 +1,16 @@
-#include <iostream>
 #include "Brickblock.h"
+#include <iostream>
 #include "../util/filesystem/directory/DirectoryLocation.h"
 #include "../util/filesystem/file/FileLocation.h"
 #include "../util/libs/spdlog/spdlog.h"
 #include "../util/filesystem/directory/DirectoryList.h"
 #include "../util/logger/BBLogger.h"
+
+#include "../input/setting/numeric/IntegerSetting.h"
+#include "../input/setting/key/KeySetting.h"
+#include "../util/filesystem/StringUtil.h"
+#include <set>
+#include <GLFW/glfw3.h>
 using namespace bb;
 
 static const std::string CLASS_NAME = "Main.cpp";
@@ -14,27 +20,44 @@ int main(int argc, int **argv)
 	GLint exitResult = EXIT_SUCCESS;
 	Brickblock *brickblock = nullptr;
 	DirectoryList::getInstance().init();
+
+	/*std::set<GLuint> mTestLolKeys;
+	mTestLolKeys.insert(GLFW_KEY_W);
+	KeySetting *mTestLol = new KeySetting("KeyTest", mTestLolKeys);
 	
-	/*BBLogger::logTrace(CLASS_NAME, "CONSOLE HELLO WORLD!!!", Logger::EnumLogLocation::CONSOLE);
-	BBLogger::logDebug(CLASS_NAME, "CONSOLE HELLO WORLD!!!", Logger::EnumLogLocation::CONSOLE);
-	BBLogger::logInfo(CLASS_NAME, "CONSOLE HELLO WORLD!!!", Logger::EnumLogLocation::CONSOLE);
-	BBLogger::logWarn(CLASS_NAME, "CONSOLE HELLO WORLD!!!", Logger::EnumLogLocation::CONSOLE);
-	BBLogger::logError(CLASS_NAME, "CONSOLE HELLO WORLD!!!", Logger::EnumLogLocation::CONSOLE);
-	BBLogger::logCritical(CLASS_NAME, "CONSOLE HELLO WORLD!!!", Logger::EnumLogLocation::CONSOLE);
+	BBLogger::logInfo("KEY TEST", mTestLol->toReadableString());
+	BBLogger::logInfo("KEY TEST", mTestLol->toFileString());
+	BBLogger::logInfo("KEY TEST", mTestLol->getSettingName());
+	BBLogger::logInfo("KEY TEST", StringUtil::setToString(mTestLol->getDefaultKeyBinding()));
+	BBLogger::logInfo("KEY TEST", std::to_string(mTestLol->getDefaultBindingLength()));
+	BBLogger::logInfo("KEY TEST", StringUtil::setToString(mTestLol->getCustomKeyBinding()));
+	BBLogger::logInfo("KEY TEST", std::to_string(mTestLol->getCustomBindingLength()));
+	BBLogger::logInfo("KEY TEST", std::to_string(mTestLol->isModified()));
 
-	BBLogger::logTrace(CLASS_NAME, "FILE HELLO WORLD!!!", Logger::EnumLogLocation::FILE);
-	BBLogger::logDebug(CLASS_NAME, "FILE HELLO WORLD!!!", Logger::EnumLogLocation::FILE);
-	BBLogger::logInfo(CLASS_NAME, "FILE HELLO WORLD!!!", Logger::EnumLogLocation::FILE);
-	BBLogger::logWarn(CLASS_NAME, "FILE HELLO WORLD!!!", Logger::EnumLogLocation::FILE);
-	BBLogger::logError(CLASS_NAME, "FILE HELLO WORLD!!!", Logger::EnumLogLocation::FILE);
-	BBLogger::logCritical(CLASS_NAME, "FILE HELLO WORLD!!!", Logger::EnumLogLocation::FILE);
+	mTestLolKeys.clear();
+	mTestLol->setCustomKeyBinding(mTestLolKeys);
 
-	BBLogger::logTrace(CLASS_NAME, "CONSOLE AND FILE HELLO WORLD!!!", Logger::EnumLogLocation::CONSOLE_AND_FILE);
-	BBLogger::logDebug(CLASS_NAME, "CONSOLE AND FILE HELLO WORLD!!!", Logger::EnumLogLocation::CONSOLE_AND_FILE);
-	BBLogger::logInfo(CLASS_NAME, "CONSOLE AND FILE HELLO WORLD!!!", Logger::EnumLogLocation::CONSOLE_AND_FILE);
-	BBLogger::logWarn(CLASS_NAME, "CONSOLE AND FILE HELLO WORLD!!!", Logger::EnumLogLocation::CONSOLE_AND_FILE);
-	BBLogger::logError(CLASS_NAME, "CONSOLE AND FILE HELLO WORLD!!!", Logger::EnumLogLocation::CONSOLE_AND_FILE);
-	BBLogger::logCritical(CLASS_NAME, "CONSOLE AND FILE HELLO WORLD!!!", Logger::EnumLogLocation::CONSOLE_AND_FILE);*/
+	BBLogger::logInfo("KEY TEST", mTestLol->toReadableString());
+	BBLogger::logInfo("KEY TEST", mTestLol->toFileString());
+	BBLogger::logInfo("KEY TEST", mTestLol->getSettingName());
+	BBLogger::logInfo("KEY TEST", StringUtil::setToString(mTestLol->getDefaultKeyBinding()));
+	BBLogger::logInfo("KEY TEST", std::to_string(mTestLol->getDefaultBindingLength()));
+	BBLogger::logInfo("KEY TEST", StringUtil::setToString(mTestLol->getCustomKeyBinding()));
+	BBLogger::logInfo("KEY TEST", std::to_string(mTestLol->getCustomBindingLength()));
+	BBLogger::logInfo("KEY TEST", std::to_string(mTestLol->isModified()));
+
+	mTestLol->resetCustomValue();
+
+	BBLogger::logInfo("KEY TEST", mTestLol->toReadableString());
+	BBLogger::logInfo("KEY TEST", mTestLol->toFileString());
+	BBLogger::logInfo("KEY TEST", mTestLol->getSettingName());
+	BBLogger::logInfo("KEY TEST", StringUtil::setToString(mTestLol->getDefaultKeyBinding()));
+	BBLogger::logInfo("KEY TEST", std::to_string(mTestLol->getDefaultBindingLength()));
+	BBLogger::logInfo("KEY TEST", StringUtil::setToString(mTestLol->getCustomKeyBinding()));
+	BBLogger::logInfo("KEY TEST", std::to_string(mTestLol->getCustomBindingLength()));
+	BBLogger::logInfo("KEY TEST", std::to_string(mTestLol->isModified()));
+
+	delete mTestLol;*/
 
 	try
 	{

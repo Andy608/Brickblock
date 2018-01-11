@@ -13,6 +13,11 @@ GLfloat MathHelper::toDegrees(const GLfloat &radians)
 	return radians * 180.0f / PI;
 }
 
+GLfloat MathHelper::magnitudeSquared(glm::vec3 &vec)
+{
+	return vec.x * vec.x + vec.y * vec.y + vec.z * vec.z;
+}
+
 /*void MathHelper::toRadians(GLfloat &degrees)
 {
 	degrees *= PI / 180.0f;

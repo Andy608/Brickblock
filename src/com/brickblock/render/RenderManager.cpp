@@ -10,7 +10,8 @@ RenderManager::RenderManager() :
 	mModelRenderer(new ModelRenderer()),
 	mACTIVE_SP(nullptr)
 {
-	mCamera->getTransform()->setRotation(-0.2, 0.0, 0.0);
+	mCamera->getTransform()->addPosition(0.0f, 0.0f, 10.0f);
+	//mCamera->getTransform()->setRotation(-0.2, 0.0, 0.0);
 }
 
 RenderManager::~RenderManager()

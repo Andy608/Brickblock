@@ -193,8 +193,7 @@ void MeshFactory::addFloatsFromString(std::string line, std::vector<GLfloat>& da
 	//GLuint endIndex;
 	GLfloat extractedFloat;
 
-	std::vector<std::string> floats;
-	StringUtil::split(line.c_str(), DELIMITER, GL_FALSE, floats);
+	std::vector<std::string> floats = StringUtil::split(line.c_str(), DELIMITER, GL_FALSE);
 
 	GLuint i;
 	for (i = 0; i < floats.size(); ++i)
@@ -218,8 +217,7 @@ void MeshFactory::getIntsFromString(std::string line, std::vector<GLint>& data, 
 	//GLuint endIndex;
 	GLint extractedInt;
 
-	std::vector<std::string> ints;
-	StringUtil::split(line.c_str(), DELIMITER, GL_TRUE, ints);
+	std::vector<std::string> ints = StringUtil::split(line.c_str(), DELIMITER, GL_TRUE);
 
 	/*GLuint i;
 	for (i = 0; i < ints.size(); ++i)

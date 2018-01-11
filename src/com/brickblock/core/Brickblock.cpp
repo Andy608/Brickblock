@@ -6,6 +6,7 @@
 #include "../util/filesystem/directory/DirectoryLocation.h"
 #include "../util/filesystem/file/FileLocation.h"
 #include "../util/load/ResourceManager.h"
+#include "../input/setting/GameSettings.h"
 #include "../util/filesystem/directory/DirectoryList.h"
 #include "../world/World.h"
 
@@ -20,6 +21,7 @@ Brickblock::Brickblock() :
 	mIsInitialized(GL_FALSE),
 	mIsRunning(GL_FALSE),
 	mResourceManager(nullptr),
+	mGameSettings(nullptr),
 	mWINDOW(Window::getInstance()),
 	mCurrentWorld(nullptr)
 {
@@ -28,6 +30,7 @@ Brickblock::Brickblock() :
 
 Brickblock::~Brickblock()
 {
+	delete mGameSettings;
 	delete mResourceManager;
 }
 
@@ -35,13 +38,18 @@ void Brickblock::init(GLint argc, GLint **argv)
 {
 	if (!mIsInitialized)
 	{
+		mGameSettings = GameSettings::init();
+
 		//Log creating resource manager
 		BBLogger::logTrace(CLASS_NAME, "Creating Resource Manager.");
 		mResourceManager = new ResourceManager();
+
 		BBLogger::logTrace(CLASS_NAME, "...Creating Resource Packs");
 		mResourceManager->createResourcePacks();
+		
 		BBLogger::logTrace(CLASS_NAME, "...Registering Resource Packs");
 		mResourceManager->registerResourcePacks();
+		
 		BBLogger::logTrace(CLASS_NAME, "...Registering Resources in Packs");
 		mResourceManager->loadResourcePacks();
 
@@ -60,9 +68,10 @@ void Brickblock::start(GLint argc, GLint **argv)
 	if (!mIsRunning)
 	{
 		mIsRunning = GL_TRUE;
-		GLFWwindow* windowHandle = mWINDOW.getGLFWWindow();
-
+		
 		init(argc, argv);
+
+		GLFWwindow* windowHandle = mWINDOW.getGLFWWindow();
 
 		GLdouble lastTime = glfwGetTime();
 		GLdouble currentTime = 0.0f;
@@ -81,8 +90,9 @@ void Brickblock::start(GLint argc, GLint **argv)
 			{
 				accumulatedTime = LAG_CAP;
 			}*/
+			
 
-			while (accumulatedTime > TIME_SLICE)
+			if (accumulatedTime > TIME_SLICE)
 			{
 				accumulatedTime -= TIME_SLICE;
 				update(TIME_SLICE);

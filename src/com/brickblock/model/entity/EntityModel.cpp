@@ -46,7 +46,7 @@ void EntityModel::ComponentNode::render(const GLdouble &alpha, const glm::mat4x4
 	mMeshTransform->lerp(alpha);
 
 	glm::mat4x4 parentTransform;
-	if (mParentComponent != nullptr)
+	if (mParentComponent)
 	{
 		Transform *parent = mParentComponent->mMeshTransform;
 		parent->lerp(alpha);

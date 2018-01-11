@@ -7,8 +7,6 @@
 
 namespace bb
 {
-	class Logger;
-
 	class Window
 	{
 	public:

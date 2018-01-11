@@ -16,7 +16,8 @@ void ModelRenderer::render(const GLdouble& alpha, const std::vector<EntityModel*
 	const ShaderProgram &shaderProgram = RenderManager::getInstance().getActiveShader();
 	shaderProgram.use();
 
-	const Camera &camera = RenderManager::getInstance().getCamera();
+	Camera &camera = RenderManager::getInstance().getCamera();
+	camera.render(alpha);
 	shaderProgram.loadMat4("viewMatrix", GL_FALSE, camera.getViewMatrixPtr());
 	shaderProgram.loadMat4("projectionMatrix", GL_FALSE, camera.getProjectionMatrixPtr());
 	//shaderProgram.loadMat4("transformMatrix", GL_FALSE, glm::value_ptr(glm::mat4x4()));
@@ -24,18 +25,11 @@ void ModelRenderer::render(const GLdouble& alpha, const std::vector<EntityModel*
 
 	for (GLuint i = 0; i < MODEL_LIST.size(); ++i)
 	{
-		if (MODEL_LIST.at(i)->getTextureWrapper() != nullptr)
-		{
-			glActiveTexture(GL_TEXTURE0);
-			MODEL_LIST.at(i)->getTextureWrapper()->bind();
+			//glActiveTexture(GL_TEXTURE0);
+			//MODEL_LIST.at(i)->getTextureWrapper()->bind();
 			//BBLogger::logDebug("ModelRenderer.cpp", "RENDERERING MODEL: " + std::to_string(i));
 			MODEL_LIST.at(i)->render(alpha, shaderProgram);
-			MODEL_LIST.at(i)->getTextureWrapper()->unbind();
-		}
-		else
-		{
-			MODEL_LIST.at(i)->render(alpha, shaderProgram);
-		}
+			//MODEL_LIST.at(i)->getTextureWrapper()->unbind();
 	}
 
 	glDisable(GL_DEPTH_TEST);

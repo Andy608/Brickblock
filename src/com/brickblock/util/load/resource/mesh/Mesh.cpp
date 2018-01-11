@@ -95,7 +95,7 @@ EBOWrapper* const Mesh::getEBOWrapper() const
 	return mEBOWrapper;
 }
 
-void Mesh::render(const GLdouble& deltaTime) const
+void Mesh::render(const GLdouble& alpha) const
 {
 	//Change this in the future to support multiple rendering types.
 

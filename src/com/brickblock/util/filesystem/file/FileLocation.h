@@ -28,8 +28,7 @@ namespace bb
 		std::string getPath() const;
 		const DirectoryLocation& getParentDirectory() const;
 
-		GLboolean isExist() const;
-		const GLboolean isCreated() const;
+		GLboolean isExist();
 		GLboolean createFile();
 
 	private:

@@ -63,14 +63,10 @@ const DirectoryLocation& FileLocation::getParentDirectory() const
 	return mPARENT_DIRECTORY;
 }
 
-GLboolean FileLocation::isExist() const
+GLboolean FileLocation::isExist()
 {
 	std::ifstream inFileStream(getPath());
-	return inFileStream.good();
-}
-
-const GLboolean FileLocation::isCreated() const
-{
+	mIsCreated = inFileStream.good();
 	return mIsCreated;
 }
 

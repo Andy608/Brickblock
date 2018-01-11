@@ -6,6 +6,7 @@
 #include "../util/load/resource/pack/TextureResourcePack.h"
 #include "../util/load/resource/pack/ShaderResourcePack.h"
 #include "../render/camera/Camera.h"
+#include <GLFW/glfw3.h>
 using namespace bb;
 
 World::World(std::string worldName) :

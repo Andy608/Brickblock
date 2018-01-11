@@ -3,6 +3,7 @@
 #include "Window.h"
 #include "../core/BrickblockInfo.h"
 #include "../render/RenderManager.h"
+#include "../input/setting/GameSettings.h"
 using namespace bb;
 
 GLint Window::width = 0;
@@ -129,8 +130,18 @@ void Window::framebufferSizeCallback(GLFWwindow* windowHandle, GLint windowWidth
 
 void Window::keyCallback(GLFWwindow* windowHandle, GLint key, GLint scancode, GLint action, GLint mode)
 {
-	//std::cout << "Keyboard Callback" << std::endl;
-	if (key == GLFW_KEY_ESCAPE && action == GLFW_RELEASE)
+	GameSettings::getInstance().update();
+
+	if (action == GLFW_PRESS)
+	{
+		GameSettings::getInstance().setKeyPressed(key);
+	}
+	else if (action == GLFW_RELEASE)
+	{
+		GameSettings::getInstance().setKeyReleased(key);
+	}
+
+	if (GameSettings::getWindowCloseKey().isPressed())
 	{
 		glfwSetWindowShouldClose(windowHandle, GL_TRUE);
 	}

@@ -4,6 +4,9 @@
 #include <glm/gtc/type_ptr.hpp>
 #include "../../util/logger/BBLogger.h"
 #include "../../util/math/MatrixUtil.h"
+#include "../../util/math/MathHelper.h"
+#include "../../input/setting/GameSettings.h"
+#include <GLFW/glfw3.h>
 using namespace bb;
 
 const GLfloat Camera::NEAR_PLANE = 0.001f;
@@ -28,23 +31,13 @@ Camera::~Camera()
 
 void Camera::updateViewMatrix()
 {
-	mTransform->setRotation(
-		mTransform->getRotation().x /*+ 0.01f*/,
-		mTransform->getRotation().y,
-		mTransform->getRotation().z);
-	
 	mLookDirection = glm::vec3(0.0, 0.0, -1.0);
-	MatrixUtil::rotateAboutXAxis(mLookDirection, mTransform->getRotation().x);
-	MatrixUtil::rotateAboutYAxis(mLookDirection, mTransform->getRotation().y);
-	MatrixUtil::rotateAboutZAxis(mLookDirection, mTransform->getRotation().z);
+	MatrixUtil::rotateAboutXAxis(mLookDirection, mTransform->mLerpedRotation.x);
+	MatrixUtil::rotateAboutYAxis(mLookDirection, mTransform->mLerpedRotation.y);
+	MatrixUtil::rotateAboutZAxis(mLookDirection, mTransform->mLerpedRotation.z);
+	mLookDirection = glm::normalize(mLookDirection);
 
-	/*BBLogger::logDebug("Camera.cpp",
-		std::to_string(mLookDirection.x) + ", " +
-		std::to_string(mLookDirection.y) + ", " +
-		std::to_string(mLookDirection.z)
-	);*/
-
-	mViewMatrix = glm::lookAt(mTransform->getPosition(), mTransform->getPosition() + mLookDirection, mCameraUp);
+	mViewMatrix = glm::lookAt(mTransform->mLerpedPosition, mTransform->mLerpedPosition + mLookDirection, mCameraUp);
 }
 
 void Camera::updateProjectionMatrix(GLint viewportWidth, GLint viewportHeight)
@@ -67,31 +60,51 @@ void Camera::updateProjectionMatrix(GLint viewportWidth, GLint viewportHeight)
 }
 
 
-void Camera::update(const GLdouble& DELTA_TIME)
+void Camera::update(const GLdouble& deltaTime)
 {
-	/*if (InputTracker::instance->getCameraForwardKey().isPressed())
+	mTransform->update();
+
+	if (GameSettings::getMoveForwardKey().isPressed())
 	{
-		logger.log(Logger::Level::LEVEL_DEBUG, std::to_string(mTransform->getPosition().x) + ", " +
-			std::to_string(mTransform->getPosition().y) + ", " +
-			std::to_string(mTransform->getPosition().z));
-		mTransform->setPosition(mTransform->getPosition().x, mTransform->getPosition().y, mTransform->getPosition().z - 1);
+		mMoveDirection = mCameraForward;
 	}
 
-	if (InputTracker::instance->getCameraBackwardKey().isPressed())
+	if (GameSettings::getMoveBackwardKey().isPressed())
 	{
-		logger.log(Logger::Level::LEVEL_DEBUG, std::to_string(mTransform->getPosition().x) + ", " +
-			std::to_string(mTransform->getPosition().y) + ", " +
-			std::to_string(mTransform->getPosition().z));
-		mTransform->setPosition(mTransform->getPosition().x, mTransform->getPosition().y, mTransform->getPosition().z + 1);
-	}*/
+		mMoveDirection += -mCameraForward;
+	}
 
+	if (GameSettings::getMoveLeftKey().isPressed())
+	{
+		mMoveDirection -= mCameraRight;
+	}
+
+	if (GameSettings::getMoveRightKey().isPressed())
+	{
+		mMoveDirection += mCameraRight;
+	}
+
+	if (MathHelper::magnitudeSquared(mMoveDirection) > 0)
+	{
+		mMoveDirection = glm::normalize(mMoveDirection);
+		mTransform->addPosition((float)(5.0 * deltaTime) * mMoveDirection);
+	}
+
+	mMoveDirection.x = 0.0f;
+	mMoveDirection.y = 0.0f;
+	mMoveDirection.z = 0.0f;
+}
+
+void Camera::render(const GLdouble &alpha)
+{
+	mTransform->lerp(alpha);
 	updateBasis();
 	updateViewMatrix();
 }
 
 void Camera::updateBasis()
 {
-	mCameraForward = glm::normalize(mLookDirection);
+	mCameraForward = mLookDirection;
 	mCameraRight = glm::normalize(glm::cross(mCameraForward, MatrixUtil::WORLD_UP));
 	mCameraUp = glm::cross(mCameraRight, mCameraForward);
 }
